@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LinkedIn Inbound</title>
+<style>
+:root{
+  --bg:#F7F4EE; --fg:#12131A; --card:#FFFFFC; --muted:#5A5E67;
+  --primary:#EC0E8F; --primary-fg:#FFFFFF; --accent:#FBE4F2; --accent-fg:#C50A78;
+  --border:#E7DEE5; --secondary:#F1ECE5; --track:#E7DEE5;
+  --bloom-1:#FBD6EC; --bloom-2:#FDE8D6; --bloom-3:#E6E0FA;
+  --radius:16px;
+  --shadow-lg:0 18px 48px rgba(18,19,26,.10), 0 2px 8px rgba(18,19,26,.04);
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0F0D10; --fg:#F5EEF2; --card:#171216; --muted:#B8A9B2;
+    --accent:#2A1522; --accent-fg:#F9B9DE; --border:#2C222A; --secondary:#221A20; --track:#2C222A;
+    --bloom-1:#3a1230; --bloom-2:#2a2015; --bloom-3:#1e1a35;
+    --shadow-lg:0 18px 48px rgba(0,0,0,.5), 0 2px 8px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F0D10; --fg:#F5EEF2; --card:#171216; --muted:#B8A9B2;
+  --accent:#2A1522; --accent-fg:#F9B9DE; --border:#2C222A; --secondary:#221A20; --track:#2C222A;
+  --bloom-1:#3a1230; --bloom-2:#2a2015; --bloom-3:#1e1a35;
+  --shadow-lg:0 18px 48px rgba(0,0,0,.5), 0 2px 8px rgba(0,0,0,.3);
+}
+:root[data-theme="light"]{
+  --bg:#F7F4EE; --fg:#12131A; --card:#FFFFFC; --muted:#5A5E67;
+  --accent:#FBE4F2; --accent-fg:#C50A78; --border:#E7DEE5; --secondary:#F1ECE5; --track:#E7DEE5;
+  --bloom-1:#FBD6EC; --bloom-2:#FDE8D6; --bloom-3:#E6E0FA;
+  --shadow-lg:0 18px 48px rgba(18,19,26,.10), 0 2px 8px rgba(18,19,26,.04);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{
+  font-family:var(--font); background:var(--bg); color:var(--fg);
+  -webkit-font-smoothing:antialiased; line-height:1.55;
+  min-height:100%; display:flex; flex-direction:column;
+}
+
+/* Fond anime discret */
+.mesh{position:fixed;inset:0;z-index:-1;overflow:hidden;background:var(--bg)}
+.mesh i{position:absolute;display:block;border-radius:50%;filter:blur(70px);opacity:.5;will-change:transform}
+.mesh i:nth-child(1){width:46vmax;height:46vmax;top:-16vmax;left:-10vmax;background:radial-gradient(circle at 30% 30%,var(--bloom-1),transparent 70%);animation:bloom 22s var(--ease) infinite alternate}
+.mesh i:nth-child(2){width:40vmax;height:40vmax;bottom:-16vmax;right:-10vmax;background:radial-gradient(circle at 60% 40%,var(--bloom-2),transparent 70%);animation:bloom 26s var(--ease) infinite alternate -9s}
+.mesh i:nth-child(3){width:30vmax;height:30vmax;top:40%;left:52%;opacity:.35;background:radial-gradient(circle,var(--bloom-3),transparent 70%);animation:bloom 30s var(--ease) infinite alternate -15s}
+@keyframes bloom{to{transform:translate(5vmax,4vmax) scale(1.14)}}
+
+/* ---------- En-tete ---------- */
+header{width:100%;max-width:660px;margin:0 auto;padding:1.5rem 1.25rem .25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--fg)}
+.mark{width:30px;height:30px;color:var(--primary);flex:0 0 auto}
+.mark .core{animation:pulse 3.2s var(--ease) infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+.wordmark{display:flex;flex-direction:column;line-height:1.05}
+.wordmark b{font-size:1rem;font-weight:800;letter-spacing:.14em}
+.wordmark span{font-size:.6rem;font-weight:650;letter-spacing:.13em;color:var(--muted);text-transform:uppercase}
+.pct{font-size:.78rem;font-weight:800;color:var(--primary);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+
+/* ---------- Progression segmentee ---------- */
+.progress{width:100%;max-width:660px;margin:0 auto;padding:.85rem 1.25rem 0;display:flex;gap:.75rem;align-items:center}
+.chapgroup{display:flex;gap:3px;flex:1}
+.seg{height:5px;flex:1;border-radius:99px;background:var(--track);transition:background .45s var(--ease),transform .45s var(--ease)}
+.seg.on{background:var(--primary)}
+.seg.pop{animation:pop .5s var(--ease)}
+@keyframes pop{0%{transform:scaleY(1)}45%{transform:scaleY(2.6)}100%{transform:scaleY(1)}}
+
+/* ---------- Scene ---------- */
+main{flex:1;display:grid;place-items:center;padding:1.25rem 1.25rem 2rem;width:100%}
+.stage{width:100%;max-width:660px}
+.screen{animation:enter .45s var(--ease) both}
+@keyframes enter{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
+
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);padding:2.15rem 2rem;
+  min-height:600px;display:flex;flex-direction:column;
+}
+@media(max-width:560px){.card{padding:1.6rem 1.25rem;min-height:575px}}
+.card .body{flex:1}
+
+.chip{
+  display:inline-flex;align-items:center;gap:.45rem;background:var(--accent);color:var(--accent-fg);
+  font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  padding:.32rem .75rem;border-radius:999px;margin-bottom:1.15rem;
+}
+.chip .n{width:15px;height:15px;border-radius:50%;background:var(--primary);color:#fff;font-size:.58rem;display:grid;place-items:center;font-weight:900}
+
+h1{font-size:clamp(1.6rem,4.6vw,2.2rem);line-height:1.13;letter-spacing:-.03em;font-weight:800;margin-bottom:.9rem}
+h2{font-size:clamp(1.22rem,3.4vw,1.5rem);line-height:1.25;letter-spacing:-.022em;font-weight:750;margin-bottom:.55rem}
+.lede{color:var(--muted);font-size:.95rem;margin-bottom:1.6rem}
+.hint{color:var(--muted);font-size:.855rem;margin-bottom:1.2rem}
+
+/* ---------- Champs ---------- */
+input[type=text],textarea{
+  width:100%;font:inherit;font-size:1rem;color:var(--fg);background:var(--bg);
+  border:1.5px solid var(--border);border-radius:11px;padding:.8rem .9rem;outline:none;
+  transition:border-color .15s,box-shadow .15s;
+}
+textarea{min-height:118px;resize:vertical;line-height:1.55}
+input:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 16%,transparent)}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:.65}
+
+.options{display:grid;gap:.5rem}
+.opt{
+  display:flex;align-items:center;gap:.75rem;padding:.72rem .95rem;border:1.5px solid var(--border);
+  border-radius:11px;background:var(--bg);cursor:pointer;font:inherit;font-size:.95rem;font-weight:600;
+  transition:border-color .15s,background .15s,transform .07s;text-align:left;color:var(--fg);
+}
+.opt:hover{border-color:color-mix(in srgb,var(--primary) 45%,var(--border))}
+.opt:active{transform:translateY(1px)}
+.opt[aria-pressed="true"]{border-color:var(--primary);background:var(--accent);color:var(--accent-fg)}
+.opt .box{width:19px;height:19px;border-radius:6px;border:1.5px solid var(--border);flex:0 0 auto;display:grid;place-items:center;font-size:11px;font-weight:900;color:transparent;transition:background .15s,border-color .15s}
+.opt[aria-pressed="true"] .box{background:var(--primary);border-color:var(--primary);color:#fff}
+
+/* ---------- Boutons ---------- */
+.actions{display:flex;gap:.55rem;align-items:center;margin-top:1.6rem;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font:inherit;font-size:.9rem;
+  font-weight:700;padding:.75rem 1.4rem;border-radius:11px;border:1.5px solid transparent;cursor:pointer;
+  transition:background .15s,border-color .15s,transform .07s,box-shadow .15s;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:var(--primary-fg);box-shadow:0 4px 14px -4px color-mix(in srgb,var(--primary) 55%,transparent)}
+.btn-primary:hover{background:color-mix(in srgb,var(--primary) 88%,#000)}
+.btn-ghost{background:transparent;color:var(--muted);border-color:var(--border)}
+.btn-ghost:hover{background:var(--secondary);color:var(--fg)}
+.btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.kbd{font-size:.72rem;opacity:.7;font-weight:600}
+
+/* ---------- Fin de chapitre ---------- */
+.trophy{width:66px;height:66px;border-radius:50%;background:var(--accent);color:var(--primary);display:grid;place-items:center;margin-bottom:1.25rem;animation:bounce .6s var(--ease) both}
+.trophy svg{width:32px;height:32px}
+@keyframes bounce{0%{transform:scale(.4);opacity:0}55%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+.chapline{display:flex;gap:.5rem;margin:1.35rem 0 .25rem}
+.chapline div{flex:1;height:5px;border-radius:99px;background:var(--track)}
+.chapline div.on{background:var(--primary)}
+.chapnames{display:flex;gap:.5rem;font-size:.7rem;font-weight:700;color:var(--muted)}
+.chapnames span{flex:1}
+.chapnames span.on{color:var(--primary)}
+
+/* ---------- Ecran final ---------- */
+.brief-box{
+  background:var(--bg);border:1.5px solid var(--border);border-radius:11px;padding:1rem;
+  max-height:300px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.76rem;line-height:1.65;white-space:pre-wrap;word-break:break-word;margin-bottom:1.1rem;
+}
+.steps{display:grid;gap:.7rem;margin:1.4rem 0 0}
+.step{display:flex;gap:.75rem;align-items:flex-start;font-size:.885rem}
+.step .n{width:23px;height:23px;border-radius:50%;background:var(--accent);color:var(--accent-fg);font-size:.72rem;font-weight:800;display:grid;place-items:center;flex:0 0 auto;margin-top:.08rem}
+
+footer{padding:0 1.25rem 1.6rem;max-width:660px;margin:0 auto;width:100%;text-align:center}
+.privacy{font-size:.735rem;color:var(--muted)}
+.toast{
+  position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,150%);background:var(--fg);color:var(--bg);
+  padding:.7rem 1.2rem;border-radius:999px;font-size:.85rem;font-weight:700;box-shadow:var(--shadow-lg);
+  transition:transform .38s var(--ease);z-index:60;
+}
+.toast.show{transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  .screen,.trophy,.seg.pop,.mesh i,.mark .core{animation:none}
+  .seg,.progress-fill{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="mesh"><i></i><i></i><i></i></div>
+
+<header>
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 100 100" role="img" aria-label="Logo">
+      <g stroke="currentColor" stroke-linecap="round" fill="none">
+        <line x1="50" y1="39" x2="50" y2="18" stroke-width="2.5"/>
+        <line x1="61" y1="50" x2="82" y2="50" stroke-width="2.5"/>
+        <line x1="50" y1="61" x2="50" y2="82" stroke-width="2.5"/>
+        <line x1="39" y1="50" x2="18" y2="50" stroke-width="2.5"/>
+        <line x1="57.8" y1="42.2" x2="68.4" y2="31.6" stroke-width="1.5" opacity=".35"/>
+        <line x1="57.8" y1="57.8" x2="68.4" y2="68.4" stroke-width="1.5" opacity=".35"/>
+        <line x1="42.2" y1="57.8" x2="31.6" y2="68.4" stroke-width="1.5" opacity=".35"/>
+        <line x1="42.2" y1="42.2" x2="31.6" y2="31.6" stroke-width="1.5" opacity=".35"/>
+      </g>
+      <g fill="currentColor">
+        <circle cx="50" cy="14" r="4"/><circle cx="86" cy="50" r="4"/>
+        <circle cx="50" cy="86" r="4"/><circle cx="14" cy="50" r="4"/>
+        <circle cx="71" cy="29" r="2" opacity=".45"/><circle cx="71" cy="71" r="2" opacity=".45"/>
+        <circle cx="29" cy="71" r="2" opacity=".45"/><circle cx="29" cy="29" r="2" opacity=".45"/>
+        <circle class="core" cx="50" cy="50" r="9"/>
+      </g>
+      <circle cx="50" cy="50" r="3.5" fill="#fff" opacity=".95"/>
+    </svg>
+    <span class="wordmark" id="wordmark"></span>
+  </div>
+  <div class="pct" id="pct"></div>
+</header>
+
+<div class="progress" id="progress"></div>
+
+<main><div class="stage" id="stage"></div></main>
+
+<footer><p class="privacy">Rien n'est envoyé nulle part. Tes réponses restent dans ton navigateur, sur ton appareil.</p></footer>
+
+<div class="toast" id="toast">Brief copié</div>
+
+<script>
+"use strict";
+
+/* ============================================================================
+ * MARQUE BLANCHE, la seule zone à modifier.
+ * Laisse "nom" vide pour une page totalement neutre, sans marque.
+ * La couleur se propage partout (boutons, progression, sélections, fond).
+ * ========================================================================== */
+var BRAND = {
+  nom:      "",                  // Ton nom ou celui de ta boîte. Vide = neutre.
+  sous:     "LinkedIn Inbound",  // La ligne sous le nom.
+  primaire: "#EC0E8F"            // Ta couleur principale.
+};
+
+function applyBrand(){
+  var r = document.documentElement, p = BRAND.primaire;
+  if (p){
+    r.style.setProperty("--primary", p);
+    r.style.setProperty("--ring", p);
+    // Teinte translucide : lisible sur fond clair comme sur fond sombre.
+    r.style.setProperty("--accent", "color-mix(in srgb," + p + " 14%,transparent)");
+    // Mélangé vers la couleur du texte du thème : fonce en clair, éclaircit en sombre.
+    r.style.setProperty("--accent-fg", "color-mix(in srgb," + p + " 78%,var(--fg))");
+    r.style.setProperty("--bloom-1", "color-mix(in srgb," + p + " 24%,transparent)");
+  }
+  var wm = document.getElementById("wordmark");
+  if (BRAND.nom) wm.innerHTML = "<b>" + esc(BRAND.nom) + "</b><span>" + esc(BRAND.sous) + "</span>";
+  else wm.innerHTML = "<b style='letter-spacing:-.01em;font-size:.92rem'>" + esc(BRAND.sous) + "</b>";
+  document.title = BRAND.nom ? BRAND.nom + ", " + BRAND.sous : BRAND.sous;
+}
+
+var CHAPTERS = [
+  { title:"Toi",       sub:"Qui tu es, et ce que tu vends" },
+  { title:"Ta cible",  sub:"À qui tu parles, et ce qui la fait souffrir" },
+  { title:"Ton style", sub:"Comment tu veux jouer" }
+];
+
+var QUESTIONS = [
+  { ch:0, id:"prenom", type:"text", required:true,
+    label:"On commence par toi. Ton prénom et ton nom ?",
+    hint:"C'est ce qui sert à personnaliser tout ce qu'on va écrire ensuite.",
+    placeholder:"Marie Dupont" },
+
+  { ch:0, id:"linkedin", type:"text", required:true,
+    label:"Le lien de ton profil LinkedIn",
+    hint:"Copie l'adresse depuis la barre du navigateur quand tu es sur ton profil.",
+    placeholder:"linkedin.com/in/ton-profil" },
+
+  { ch:0, id:"site", type:"text", required:false,
+    label:"Le lien de ton site web",
+    hint:"Ou ton portfolio, ta page, ta fiche Google Business. Si tu n'as rien, laisse vide et continue.",
+    placeholder:"tonsite.fr" },
+
+  { ch:0, id:"metier", type:"textarea", required:true,
+    label:"Ce que tu vends, en une phrase simple",
+    hint:"Sans jargon. Comme si tu l'expliquais à quelqu'un qui ne connaît rien à ton métier.",
+    placeholder:"J'aide les cabinets comptables à réduire le temps passé sur la saisie." },
+
+  { ch:1, id:"cible", type:"textarea", required:true,
+    label:"À qui tu parles, précisément ?",
+    hint:"Métier, taille d'entreprise, situation. Plus c'est précis, plus les posts taperont juste.",
+    placeholder:"Dirigeants de cabinets comptables de 3 à 15 personnes, en région, débordés." },
+
+  { ch:1, id:"douleur", type:"textarea", required:true,
+    label:"Sa douleur numéro 1 : qu'est-ce qui l'empêche de dormir ?",
+    hint:"Pas le problème que tu résous. Le problème tel qu'ELLE le vit et le raconte.",
+    placeholder:"Il bosse le dimanche pour rattraper l'administratif et il n'ose pas embaucher." },
+
+  { ch:1, id:"ennemi", type:"textarea", required:true,
+    label:"Son ennemi : contre quoi ou qui elle rage ?",
+    hint:"Un concurrent, une pratique du secteur, une croyance, une injustice. C'est le carburant des meilleurs posts.",
+    placeholder:"Les gros réseaux qui raflent tout, et les logiciels à 300 euros par mois qui ne servent à rien." },
+
+  { ch:1, id:"preuve", type:"textarea", required:true,
+    label:"Ta preuve",
+    hint:"Résultats, cas clients, témoignages, chiffres réels. Si tu n'as encore rien, écris-le franchement : on vendra par ton histoire, jamais par un chiffre inventé.",
+    placeholder:"3 clients accompagnés cette année, ou : je démarre, je n'ai pas encore de résultats à montrer." },
+
+  { ch:1, id:"angle", type:"textarea", required:true,
+    label:"Ton angle unique",
+    hint:"Ce que personne d'autre dans ton secteur ne peut dire honnêtement. Ton parcours, ta contrainte, ta conviction.",
+    placeholder:"Je viens du métier, j'ai tenu le poste pendant 8 ans, je sais exactement où ça coince." },
+
+  { ch:2, id:"objectif", type:"choice", required:true,
+    label:"Ton objectif principal sur LinkedIn",
+    hint:"Un seul. Tout le plan sera calibré dessus.",
+    options:["Décrocher des rendez-vous commerciaux","Gagner en notoriété sur mon secteur","Recruter","Lever des fonds","Vendre un produit ou une formation"] },
+
+  { ch:2, id:"ton", type:"multi", required:true,
+    label:"Ton ton de voix",
+    hint:"Choisis-en 2 ou 3. Au-delà, la voix devient floue.",
+    options:["Direct","Chaleureux","Expert","Provocateur","Pédagogue","Drôle"] },
+
+  { ch:2, id:"temps", type:"choice", required:true,
+    label:"Combien de temps par jour, honnêtement ?",
+    hint:"Réponds vrai. Le plan s'adapte à toi, pas l'inverse. Un plan intenable ne sert à rien.",
+    options:["15 minutes","30 minutes","1 heure"] },
+
+  { ch:2, id:"interdits", type:"textarea", required:false,
+    label:"Ce que tu ne veux JAMAIS dire",
+    hint:"Sujets tabous, promesses à ne pas faire, mots que tu détestes, clients à ne pas citer. Laisse vide si tu n'as pas d'interdit.",
+    placeholder:"Jamais de promesse chiffrée. Jamais parler politique. Ne jamais citer le nom de mes clients." }
+];
+
+var STORAGE_KEY = "linkedin-inbound-intake-v1";
+var answers = {};
+var idx = -1;          // -1 intro, 0..n-1 questions, n final
+var chapterDone = -1;  // index du chapitre a celebrer, -1 sinon
+var lastPct = 0;
+
+try {
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) answers = JSON.parse(saved) || {};
+} catch (e) { answers = {}; }
+
+var stage = document.getElementById("stage");
+var progress = document.getElementById("progress");
+var pctEl = document.getElementById("pct");
+var toastEl = document.getElementById("toast");
+
+function save(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(answers)); } catch (e) {} }
+
+function esc(s){
+  return String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+function toast(msg){
+  toastEl.textContent = msg;
+  toastEl.classList.add("show");
+  setTimeout(function(){ toastEl.classList.remove("show"); }, 2200);
+}
+
+function chapterRange(c){
+  var from = -1, to = -1;
+  for (var i = 0; i < QUESTIONS.length; i++){
+    if (QUESTIONS[i].ch === c){ if (from === -1) from = i; to = i; }
+  }
+  return { from:from, to:to, count:(to - from + 1) };
+}
+
+function doneCount(){
+  if (idx >= QUESTIONS.length) return QUESTIONS.length;
+  return Math.max(0, idx);
+}
+
+/* ---------- Progression ---------- */
+
+function buildProgress(){
+  var html = "";
+  for (var c = 0; c < CHAPTERS.length; c++){
+    var r = chapterRange(c);
+    html += '<div class="chapgroup">';
+    for (var i = r.from; i <= r.to; i++) html += '<div class="seg" data-i="' + i + '"></div>';
+    html += '</div>';
+  }
+  progress.innerHTML = html;
+}
+
+function paintProgress(){
+  var done = doneCount();
+  var segs = progress.querySelectorAll(".seg");
+  for (var i = 0; i < segs.length; i++){
+    var was = segs[i].classList.contains("on");
+    var now = i < done;
+    segs[i].classList.toggle("on", now);
+    if (now && !was){
+      segs[i].classList.remove("pop");
+      void segs[i].offsetWidth;
+      segs[i].classList.add("pop");
+    }
+  }
+  var target = Math.round((done / QUESTIONS.length) * 100);
+  animatePct(target);
+}
+
+var pctRAF = null, pctTimer = null;
+function showPct(v){ pctEl.textContent = v > 0 ? v + " %" : ""; }
+function animatePct(target){
+  if (pctRAF !== null){ cancelAnimationFrame(pctRAF); pctRAF = null; }
+  if (pctTimer !== null){ clearTimeout(pctTimer); pctTimer = null; }
+  if (target === lastPct){ showPct(target); return; }
+  var start = lastPct, delta = target - start, t0 = null;
+  lastPct = target;
+  function tick(ts){
+    if (t0 === null) t0 = ts;
+    var p = Math.min(1, (ts - t0) / 450);
+    var v = Math.round(start + delta * (1 - Math.pow(1 - p, 3)));
+    showPct(v);
+    if (p < 1) pctRAF = requestAnimationFrame(tick); else pctRAF = null;
+  }
+  pctRAF = requestAnimationFrame(tick);
+  // Filet de securite : si l'onglet est masque, requestAnimationFrame ne se declenche
+  // jamais et le compteur resterait fige. setTimeout tourne dans tous les cas.
+  pctTimer = setTimeout(function(){ showPct(target); pctTimer = null; }, 600);
+}
+
+function isAnswered(q){
+  var v = answers[q.id];
+  if (!q.required) return true;
+  if (q.type === "multi") return Array.isArray(v) && v.length > 0;
+  return typeof v === "string" && v.trim().length > 0;
+}
+
+/* ---------- Ecrans ---------- */
+
+function renderIntro(){
+  stage.innerHTML =
+    '<div class="screen card">' +
+      '<div class="body">' +
+        '<span class="chip">3 chapitres, 13 questions, 8 minutes</span>' +
+        '<h1>Ton compte LinkedIn, transformé en machine à clients.</h1>' +
+        '<p class="lede">Réponds honnêtement. À la fin, tu repars avec un brief complet que tu colles dans la conversation, et on construit ton profil, tes posts, ta recherche de cibles et tes messages.</p>' +
+        '<div class="chapline">' + CHAPTERS.map(function(){ return "<div></div>"; }).join("") + '</div>' +
+        '<div class="chapnames">' + CHAPTERS.map(function(c){ return "<span>" + esc(c.title) + "</span>"; }).join("") + '</div>' +
+      '</div>' +
+      '<div class="actions">' +
+        '<button class="btn btn-primary" id="go">Commencer</button>' +
+        (Object.keys(answers).length ? '<button class="btn btn-ghost" id="reset">Repartir de zéro</button>' : '') +
+      '</div>' +
+    '</div>';
+  document.getElementById("go").onclick = function(){ idx = 0; render(); };
+  var r = document.getElementById("reset");
+  if (r) r.onclick = doReset;
+}
+
+function renderChapterDone(){
+  var c = chapterDone;
+  var next = CHAPTERS[c + 1];
+  var r = chapterRange(c);
+  stage.innerHTML =
+    '<div class="screen card" style="text-align:center;align-items:center">' +
+      '<div class="body" style="display:flex;flex-direction:column;align-items:center;justify-content:center">' +
+        '<div class="trophy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"/></svg></div>' +
+        '<h1>Chapitre ' + (c + 1) + ' terminé.</h1>' +
+        '<p class="lede">' + esc(CHAPTERS[c].title) + ' est bouclé, ' + r.count + ' questions de faites. ' +
+          'Chapitre suivant : <strong>' + esc(next.title) + '</strong>, ' + esc(next.sub.toLowerCase()) + '.</p>' +
+        '<div class="chapline" style="width:100%">' +
+          CHAPTERS.map(function(_, i){ return '<div class="' + (i <= c ? "on" : "") + '"></div>'; }).join("") +
+        '</div>' +
+        '<div class="chapnames" style="width:100%">' +
+          CHAPTERS.map(function(ch, i){ return '<span class="' + (i <= c ? "on" : "") + '">' + esc(ch.title) + '</span>'; }).join("") +
+        '</div>' +
+      '</div>' +
+      '<div class="actions" style="justify-content:center">' +
+        '<button class="btn btn-primary" id="cont">Chapitre ' + (c + 2) + ' : ' + esc(next.title) + '</button>' +
+      '</div>' +
+    '</div>';
+  document.getElementById("cont").onclick = function(){ chapterDone = -1; render(); };
+}
+
+function renderQuestion(){
+  var q = QUESTIONS[idx];
+  var r = chapterRange(q.ch);
+  var posInCh = idx - r.from + 1;
+  var v = answers[q.id];
+  var field = "";
+
+  if (q.type === "text"){
+    field = '<input type="text" id="f" value="' + esc(v || "") + '" placeholder="' + esc(q.placeholder || "") + '" autocomplete="off">';
+  } else if (q.type === "textarea"){
+    field = '<textarea id="f" placeholder="' + esc(q.placeholder || "") + '">' + esc(v || "") + '</textarea>';
+  } else {
+    var sel = q.type === "multi" ? (Array.isArray(v) ? v : []) : (v ? [v] : []);
+    field = '<div class="options">' + q.options.map(function(o){
+      var on = sel.indexOf(o) !== -1;
+      return '<button type="button" class="opt" data-val="' + esc(o) + '" aria-pressed="' + on + '">' +
+             '<span class="box">&#10003;</span>' + esc(o) + '</button>';
+    }).join("") + '</div>';
+  }
+
+  var kbd = (q.type === "text") ? '<span class="kbd">Entrée</span>'
+          : (q.type === "textarea") ? '<span class="kbd">Ctrl + Entrée</span>' : '';
+
+  stage.innerHTML =
+    '<div class="screen card">' +
+      '<div class="body">' +
+        '<span class="chip"><span class="n">' + (q.ch + 1) + '</span>' + esc(CHAPTERS[q.ch].title) + ' &middot; ' + posInCh + ' sur ' + r.count + '</span>' +
+        '<h2>' + esc(q.label) + '</h2>' +
+        '<p class="hint">' + esc(q.hint) + (q.required ? "" : " (facultatif)") + '</p>' +
+        field +
+      '</div>' +
+      '<div class="actions">' +
+        '<button class="btn btn-primary" id="next">' + (idx === QUESTIONS.length - 1 ? "Voir mon brief" : "Continuer") + kbd + '</button>' +
+        (idx > 0 ? '<button class="btn btn-ghost" id="prev">Retour</button>' : '') +
+      '</div>' +
+    '</div>';
+
+  var nextBtn = document.getElementById("next");
+  function sync(){ nextBtn.disabled = !isAnswered(q); }
+
+  if (q.type === "text" || q.type === "textarea"){
+    var f = document.getElementById("f");
+    f.focus();
+    if (f.setSelectionRange){ var l = f.value.length; f.setSelectionRange(l, l); }
+    f.oninput = function(){ answers[q.id] = f.value; save(); sync(); };
+    f.onkeydown = function(e){
+      var plain = (q.type === "text" && e.key === "Enter" && !e.shiftKey);
+      var combo = (q.type === "textarea" && e.key === "Enter" && (e.ctrlKey || e.metaKey));
+      if (plain || combo){ e.preventDefault(); if (!nextBtn.disabled) goNext(); }
+    };
+  } else {
+    Array.prototype.forEach.call(stage.querySelectorAll(".opt"), function(btn){
+      btn.onclick = function(){
+        var val = btn.getAttribute("data-val");
+        if (q.type === "multi"){
+          var cur = Array.isArray(answers[q.id]) ? answers[q.id].slice() : [];
+          var i = cur.indexOf(val);
+          if (i === -1) cur.push(val); else cur.splice(i, 1);
+          answers[q.id] = cur;
+          btn.setAttribute("aria-pressed", i === -1);
+        } else {
+          answers[q.id] = val;
+          Array.prototype.forEach.call(stage.querySelectorAll(".opt"), function(b){
+            b.setAttribute("aria-pressed", b === btn);
+          });
+        }
+        save(); sync();
+      };
+    });
+  }
+
+  sync();
+  nextBtn.onclick = function(){ if (!nextBtn.disabled) goNext(); };
+  var p = document.getElementById("prev");
+  if (p) p.onclick = function(){ idx--; render(); };
+}
+
+function goNext(){
+  var cur = QUESTIONS[idx];
+  var r = chapterRange(cur.ch);
+  var lastOfChapter = (idx === r.to);
+  idx++;
+  if (lastOfChapter && cur.ch < CHAPTERS.length - 1) chapterDone = cur.ch;
+  render();
+}
+
+function buildBrief(){
+  function g(id){
+    var v = answers[id];
+    if (Array.isArray(v)) return v.join(", ");
+    return (typeof v === "string" && v.trim()) ? v.trim() : "non renseigné";
+  }
+  var L = [];
+  L.push("# Brief LinkedIn Inbound");
+  L.push("");
+  L.push("Voici mes réponses. Utilise le skill linkedin-inbound.");
+  L.push("");
+  L.push("**Nom :** " + g("prenom"));
+  L.push("**Profil LinkedIn :** " + g("linkedin"));
+  L.push("**Site web :** " + g("site"));
+  L.push("");
+  L.push("**Ce que je vends :**");
+  L.push(g("metier"));
+  L.push("");
+  L.push("**Ma cible :**");
+  L.push(g("cible"));
+  L.push("");
+  L.push("**Sa douleur numéro 1 :**");
+  L.push(g("douleur"));
+  L.push("");
+  L.push("**Son ennemi :**");
+  L.push(g("ennemi"));
+  L.push("");
+  L.push("**Ma preuve :**");
+  L.push(g("preuve"));
+  L.push("");
+  L.push("**Mon angle unique :**");
+  L.push(g("angle"));
+  L.push("");
+  L.push("**Mon objectif :** " + g("objectif"));
+  L.push("**Mon ton de voix :** " + g("ton"));
+  L.push("**Temps disponible par jour :** " + g("temps"));
+  L.push("");
+  L.push("**Mes interdits :**");
+  L.push(g("interdits"));
+  L.push("");
+  L.push("---");
+  L.push("");
+  L.push("Commence par lire mon site et mon profil, puis attaque la Phase 1 : la réécriture");
+  L.push("complète de mon profil, section par section, en avant / après.");
+  return L.join("\n");
+}
+
+function renderFinal(){
+  var brief = buildBrief();
+  stage.innerHTML =
+    '<div class="screen card">' +
+      '<div class="body">' +
+        '<span class="chip">Brief prêt &middot; 100 %</span>' +
+        "<h1>C'est fait. Voilà ton brief.</h1>" +
+        '<p class="lede">Copie-le et colle-le dans la conversation. On enchaîne directement sur ton profil.</p>' +
+        '<div class="brief-box" id="briefBox">' + esc(brief) + '</div>' +
+        '<div class="steps">' +
+          '<div class="step"><span class="n">1</span><span><strong>On répare ton profil.</strong> Titre, bannière, à propos, sélection. Aucun post avant ça.</span></div>' +
+          '<div class="step"><span class="n">2</span><span><strong>On construit ton filet.</strong> Requêtes de recherche et banque de mots-clés, pour sortir 100 cibles.</span></div>' +
+          '<div class="step"><span class="n">3</span><span><strong>On lance la machine.</strong> Demandes de connexion et premiers posts, en parallèle.</span></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="actions">' +
+        '<button class="btn btn-primary" id="copy">Copier le brief</button>' +
+        '<button class="btn btn-ghost" id="back">Modifier mes réponses</button>' +
+        '<button class="btn btn-ghost" id="reset2">Repartir de zéro</button>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById("copy").onclick = function(){
+    var done = function(){ toast("Brief copié"); };
+    function fallback(){
+      var ta = document.createElement("textarea");
+      ta.value = brief; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); }
+      catch (e) { toast("Copie impossible, sélectionne le texte à la main"); }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(brief).then(done, fallback);
+    } else { fallback(); }
+  };
+  document.getElementById("back").onclick = function(){ idx = QUESTIONS.length - 1; render(); };
+  document.getElementById("reset2").onclick = doReset;
+}
+
+function doReset(){
+  if (!confirm("Effacer toutes tes réponses et recommencer ?")) return;
+  answers = {}; idx = -1; chapterDone = -1; lastPct = 0;
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  render();
+}
+
+function render(){
+  paintProgress();
+  if (chapterDone >= 0) renderChapterDone();
+  else if (idx < 0) renderIntro();
+  else if (idx >= QUESTIONS.length) renderFinal();
+  else renderQuestion();
+  window.scrollTo(0, 0);
+}
+
+applyBrand();
+buildProgress();
+render();
+</script>
+</body>
+</html>

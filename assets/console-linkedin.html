@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Console LinkedIn</title>
+<style>
+:root{
+  --bg:#F7F4EE; --card:#FFFFFF; --ink:#1c1418; --mut:#6b6169; --line:#e7e0d8;
+  --pri:#EC0E8F; --pri-dk:#7d164e; --ok:#16a34a; --warn:#b45309; --info:#3B82F6;
+  --glass:color-mix(in srgb,#ffffff 74%,transparent);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:
+  radial-gradient(circle at 12% 6%, color-mix(in srgb,var(--pri) 7%,transparent), transparent 34rem),
+  radial-gradient(circle at 90% 80%, color-mix(in srgb,var(--pri-dk) 6%,transparent), transparent 32rem),
+  var(--bg); color:var(--ink); font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif; line-height:1.5}
+.wrap{width:min(1180px,100%);margin:0 auto;padding:0 clamp(14px,3vw,28px)}
+
+header.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;min-height:64px;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:-.02em}
+.brand .mk{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#28232a,#0e0d10);color:#fff;position:relative;overflow:hidden}
+.brand .mk::after{content:"";position:absolute;right:-7px;bottom:5px;width:26px;height:5px;transform:rotate(-38deg);background:linear-gradient(90deg,transparent,var(--pri));box-shadow:0 0 12px var(--pri)}
+.brand small{display:block;font-weight:600;font-size:11px;color:var(--mut)}
+.top-r{display:flex;align-items:center;gap:9px}
+select.pick{min-height:40px;padding:0 11px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit;font-size:13.5px;font-weight:650}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border:0;border-radius:12px;background:var(--pri);color:#fff;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit;box-shadow:0 12px 26px color-mix(in srgb,var(--pri) 22%,transparent);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.btn-sm{min-height:36px;padding:0 12px;font-size:12.5px;border-radius:10px}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+.tabs{display:flex;gap:6px;margin:18px 0 0;overflow-x:auto;padding-bottom:2px}
+.tab{flex:0 0 auto;min-height:40px;padding:0 15px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--mut);font:inherit;font-size:13.5px;font-weight:750;cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--pri);border-color:var(--pri);color:#fff}
+
+h1.page{margin:20px 0 4px;font-size:clamp(21px,3vw,28px);letter-spacing:-.03em}
+.sub{margin:0 0 16px;color:var(--mut);font-size:13.5px}
+.kick{color:var(--pri);font-size:11px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;margin:0 0 9px}
+
+.panel{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--glass);backdrop-filter:blur(10px);margin-bottom:14px}
+.note{padding:12px 15px;border:1px solid color-mix(in srgb,var(--warn) 35%,var(--line));border-radius:12px;background:color-mix(in srgb,var(--warn) 7%,var(--card));color:#7a5212;font-size:12.5px;margin:16px 0 0}
+.empty{padding:34px;text-align:center;color:var(--mut);border:2px dashed var(--line);border-radius:16px;font-size:13.5px}
+
+/* Rituel */
+.streak{display:flex;align-items:baseline;gap:9px;margin-bottom:14px}
+.streak b{font-size:34px;letter-spacing:-.04em;line-height:1}
+.streak span{color:var(--mut);font-size:13px}
+.blocks{display:grid;gap:9px}
+.blk{display:flex;align-items:flex-start;gap:12px;padding:14px 15px;border:1.5px solid var(--line);border-radius:13px;background:var(--card);cursor:pointer;text-align:left;font:inherit;transition:.15s;width:100%}
+.blk:hover{border-color:color-mix(in srgb,var(--pri) 42%,var(--line))}
+.blk[aria-pressed="true"]{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 6%,var(--card))}
+.blk .chk{flex:0 0 auto;width:22px;height:22px;border-radius:7px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:13px;font-weight:900;color:transparent;margin-top:1px}
+.blk[aria-pressed="true"] .chk{background:var(--ok);border-color:var(--ok);color:#fff}
+.blk .t{font-weight:800;font-size:14px}
+.blk .t em{font-style:normal;color:var(--mut);font-weight:650;font-size:12px;margin-left:6px}
+.blk .d{color:var(--mut);font-size:12.5px;margin-top:2px}
+
+/* Pipeline */
+.board{display:flex;gap:11px;overflow-x:auto;padding-bottom:8px}
+.col{flex:0 0 218px;min-width:218px}
+.col-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 3px}
+.col-h b{font-size:12.5px;font-weight:850}
+.col-h span{font-size:11.5px;color:var(--mut);font-weight:700}
+.col-body{display:grid;gap:7px;min-height:56px;padding:7px;border:1px dashed var(--line);border-radius:13px;background:color-mix(in srgb,var(--card) 55%,transparent)}
+.pc{padding:10px 11px;border:1px solid var(--line);border-radius:11px;background:var(--card);font-size:12.5px}
+.pc b{display:block;font-size:13px;font-weight:800;letter-spacing:-.01em}
+.pc .r{color:var(--mut);font-size:11.5px;margin-top:1px}
+.pc .src{display:inline-block;margin-top:6px;padding:3px 7px;border-radius:7px;background:color-mix(in srgb,var(--pri) 9%,transparent);color:var(--pri-dk);font-size:10.5px;font-weight:750}
+.pc-act{display:flex;gap:5px;margin-top:8px}
+.mini{flex:1;min-height:29px;padding:0 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;color:var(--ink)}
+.mini:hover{border-color:var(--pri);color:var(--pri)}
+.mini.x{flex:0 0 30px;padding:0;color:var(--mut)}
+
+/* Signaux */
+.sig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:10px}
+.sig{padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:var(--card);cursor:pointer;text-align:left;font:inherit;transition:.15s}
+.sig:hover{border-color:var(--pri);transform:translateY(-2px)}
+.sig .lv{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:900;letter-spacing:.05em;margin-bottom:7px}
+.lv1{background:color-mix(in srgb,var(--pri) 13%,transparent);color:var(--pri-dk)}
+.lv2{background:color-mix(in srgb,var(--warn) 15%,transparent);color:#7a5212}
+.lv3{background:color-mix(in srgb,var(--info) 13%,transparent);color:#1e4fa3}
+.sig b{display:block;font-size:13.5px;font-weight:800;letter-spacing:-.01em}
+.sig .w{color:var(--mut);font-size:11.5px;margin-top:3px}
+
+/* Mesures */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.kpi{padding:14px 15px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.kpi b{display:block;font-size:26px;letter-spacing:-.03em;line-height:1.15}
+.kpi span{display:block;font-size:11.5px;color:var(--mut);font-weight:700;margin-top:3px}
+.kpi code{display:block;margin-top:6px;font-size:10.5px;color:var(--mut);font-family:ui-monospace,Menlo,Consolas,monospace}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{padding:8px 9px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);font-weight:800}
+td input{width:100%;min-height:34px;padding:0 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:12.5px}
+.tscroll{overflow-x:auto}
+
+/* Modal */
+.scrim{position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(24,16,20,.42);backdrop-filter:blur(3px)}
+.scrim.open{display:flex}
+.modal{width:min(560px,100%);max-height:90vh;overflow:auto;padding:24px;border:1px solid var(--line);border-radius:22px;background:var(--card);box-shadow:0 30px 70px rgba(24,16,20,.28)}
+.modal h2{margin:0 0 4px;font-size:19px;letter-spacing:-.02em}
+.modal p.small{margin:0 0 16px;color:var(--mut);font-size:13px}
+.field{margin-bottom:12px}
+.field label{display:block;margin-bottom:6px;font-size:13px;font-weight:750}
+.field input,.field select,.field textarea{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--ink);font:inherit;font-size:14px}
+.field textarea{min-height:96px;resize:vertical;line-height:1.55}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-foot{display:flex;justify-content:flex-end;gap:9px;margin-top:8px}
+.tpl{padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);font-size:13px;white-space:pre-wrap;line-height:1.6;margin-bottom:10px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);z-index:60;padding:11px 18px;border-radius:12px;background:var(--ink);color:#fff;font-size:13px;font-weight:650;opacity:0;transition:.22s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:640px){.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand" id="brand"></div>
+    <div class="top-r">
+      <select class="pick" id="clientPick"></select>
+      <button class="btn btn-ghost btn-sm" id="newClient">+ Client</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="tabs" id="tabs">
+    <button class="tab" data-tab="rituel" aria-selected="true">Rituel du jour</button>
+    <button class="tab" data-tab="pipeline" aria-selected="false">Pipeline</button>
+    <button class="tab" data-tab="signaux" aria-selected="false">Signaux</button>
+    <button class="tab" data-tab="mesures" aria-selected="false">Mesures</button>
+  </div>
+  <div id="view"></div>
+</main>
+
+<div class="scrim" id="scrim"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+/* ============================================================================
+ * MARQUE BLANCHE, la seule zone à modifier.
+ * Laisse "nom" vide pour une console totalement neutre, sans marque.
+ * ========================================================================== */
+var BRAND = {
+  nom:      "",                  // Ton nom ou celui de ta boîte. Vide = neutre.
+  sous:     "Pilier LinkedIn",   // La ligne sous le nom.
+  primaire: "#EC0E8F"            // Ta couleur principale.
+};
+
+/* ============================================================================
+ * COMPTES UTILISATEURS (optionnel).
+ *
+ * Laisse les deux champs vides : la console tourne en local, sans compte,
+ * dans le navigateur. C'est le mode à donner en fichier à quelqu'un.
+ *
+ * Remplis-les : chaque utilisateur a son compte, ses données le suivent d'un
+ * appareil à l'autre, et chacun ne voit que les siennes. Il faut d'abord
+ * exécuter assets/schema.sql dans Supabase (SQL Editor, Run).
+ *
+ * La clé à mettre ici est la clé PUBLIABLE (anon / publishable).
+ * JAMAIS la clé service_role : elle contourne RLS et donnerait accès à tout.
+ * ========================================================================== */
+var CLOUD = {
+  url: "",   // https://xxxxxxxx.supabase.co
+  cle: ""    // sb_publishable_... ou la clé anon
+};
+
+function applyBrand(){
+  var r = document.documentElement, p = BRAND.primaire;
+  if (p){
+    r.style.setProperty("--pri", p);
+    r.style.setProperty("--pri-dk", "color-mix(in srgb," + p + " 62%,#111)");
+  }
+  var titre = BRAND.nom ? BRAND.nom + " Console" : "Console LinkedIn";
+  var init  = BRAND.nom ? BRAND.nom.trim().charAt(0).toUpperCase() : "in";
+  document.getElementById("brand").innerHTML =
+    '<span class="mk"' + (BRAND.nom ? '' : ' style="font-size:13px;font-weight:800"') + '>' + esc(init) + '</span>' +
+    '<span>' + esc(titre) + '<small>' + esc(BRAND.sous) + '</small></span>';
+  document.title = titre + ", " + BRAND.sous;
+}
+
+/* ====================== Données de référence ====================== */
+
+var STAGES = [
+  { id:"repere",       label:"Repéré" },
+  { id:"rechauffe",    label:"Réchauffé" },
+  { id:"contacte",     label:"Contacté" },
+  { id:"conversation", label:"En conversation" },
+  { id:"rdv",          label:"Appel booké" }
+];
+
+var BLOCKS = [
+  { t:"Signaux",      min:"10 min", d:"Traiter les signaux de la veille. Le bloc le plus rentable de la journée." },
+  { t:"Réactivation", min:"15 min", d:"6 à 8 messages écrits un par un. Jamais de copier-coller brut." },
+  { t:"Publication",  min:"10 min", d:"Publier le post du jour, préparé la veille." },
+  { t:"Commentaires", min:"10 min", d:"10 commentaires chez la cible et les gros comptes du secteur." }
+];
+
+var SIGNALS = [
+  { id:"S1", lv:1, nom:"A consulté ton profil", fen:"48 h",
+    sens:"Elle t'évalue. Elle a vu ton nom quelque part et a voulu vérifier.",
+    geste:"Consulter son profil en retour (elle reçoit la notification), puis écrire.",
+    tpl:"Bonjour [Prénom], j'ai vu que vous étiez passé sur mon profil. Le vôtre m'a intéressé, notamment [élément précis]. Vous travaillez sur [sujet] en ce moment ?" },
+  { id:"S2", lv:1, nom:"A commenté ton post", fen:"24 h",
+    sens:"Le signal le plus fort de LinkedIn. Elle a pris un risque public sur ton sujet.",
+    geste:"Répondre publiquement d'abord (ça sert le post), puis message privé le lendemain.",
+    tpl:"[Prénom], merci pour votre commentaire sur [sujet]. Votre point sur [ce qu'elle a dit] m'a fait réfléchir, on ne le voit pas souvent formulé comme ça. Vous le vivez comment de votre côté ?" },
+  { id:"S3", lv:1, nom:"A réagi à ton post", fen:"72 h",
+    sens:"Une main levée. Prioriser ceux qui réagissent plusieurs fois : 3 réactions en un mois, c'est un prospect qui s'ignore.",
+    geste:"Relation 2e ou 3e : invitation avec note contextuelle. 1er degré : message léger.",
+    tpl:"Bonjour [Prénom], merci pour votre réaction sur mon post à propos de [sujet]. Je vois que vous êtes [son rôle], le sujet vous parle j'imagine. Vous en êtes où là-dessus ?" },
+  { id:"S4", lv:1, nom:"T'a envoyé une invitation", fen:"24 h",
+    sens:"Elle vient à toi. Le contact le plus chaud possible, et le plus gaspillé.",
+    geste:"Accepter, puis message dans l'heure. Jamais de pitch.",
+    tpl:"Merci pour l'invitation [Prénom]. Par curiosité, qu'est-ce qui vous a fait tomber sur mon profil ?" },
+  { id:"S5", lv:2, nom:"Nouveau poste ou promotion", fen:"90 j (idéalement 30)",
+    sens:"Le meilleur signal d'achat B2B. Elle veut marquer son passage, a souvent un budget, et remet tout à plat.",
+    geste:"Féliciter sans rien vendre, revenir 3 semaines plus tard avec la vraie question.",
+    tpl:"Félicitations pour ce nouveau poste [Prénom]. [Question sur ce qu'elle va y faire.]\n\n(3 semaines plus tard)\n[Prénom], vous avez pris vos marques ? Je suis curieux : quand on arrive sur ce type de poste, qu'est-ce qui saute aux yeux en premier ?" },
+  { id:"S6", lv:2, nom:"Son entreprise recrute", fen:"Tant que l'annonce est en ligne",
+    sens:"Une offre d'emploi est un aveu de douleur publique. Le poste recruté dit ce qui coince.",
+    geste:"Ne jamais dire « je peux remplacer ce poste ». Nommer la douleur que le recrutement révèle.",
+    tpl:"[Prénom], je vois que vous renforcez l'équipe sur [fonction]. C'est souvent le signe que [le problème que ça révèle] devient un vrai sujet. C'est ça, ou je me trompe ?" },
+  { id:"S7", lv:2, nom:"Levée de fonds, croissance, ouverture", fen:"60 j",
+    sens:"De l'argent frais et une pression à dépenser vite et bien.",
+    geste:"Féliciter, poser une question sur la suite, ne rien proposer au premier message.",
+    tpl:"Félicitations [Prénom], belle étape. Question de curiosité : c'est quoi la priorité numéro 1 des 6 prochains mois maintenant ?" },
+  { id:"S8", lv:2, nom:"A quitté une entreprise", fen:"30 j",
+    sens:"Soit elle devient indépendante (nouveau prospect ou prescripteur), soit elle change de camp. La relation se rejoue.",
+    geste:"Message humain, aucune demande.",
+    tpl:"Bonjour [Prénom], j'ai vu que vous tourniez une page. J'espère que la suite s'annonce bien. Vous partez sur quoi ?" },
+  { id:"S9", lv:3, nom:"A commenté le post d'un concurrent", fen:"72 h",
+    sens:"Dans la cible, active, déjà consciente du problème. Quelqu'un d'autre a fait le travail de la réveiller.",
+    geste:"Jamais dénigrer le concurrent. Rebondir sur le fond.",
+    tpl:"[Prénom], j'ai vu votre commentaire sur le post de [nom] à propos de [sujet]. Vous disiez [reprendre son idée]. C'est exactement le point sur lequel je bosse en ce moment. Je peux vous poser une question là-dessus ?" },
+  { id:"S10", lv:3, nom:"Publie sur un problème que tu résous", fen:"48 h",
+    sens:"Elle a formulé publiquement sa douleur. Elle t'a écrit ton message.",
+    geste:"Commenter avec une vraie réponse utile, gratuite. Le message privé vient après, ou vient d'elle.",
+    tpl:"(En commentaire, pas en message)\n[Réponse concrète et utile à son problème, 3 à 4 lignes, sans rien demander et sans mentionner ton offre.]" },
+  { id:"S11", lv:3, nom:"Participe à un événement", fen:"Avant, ou 48 h après",
+    sens:"Elle investit du temps sur un sujet. L'événement donne un prétexte naturel.",
+    geste:"S'inscrire aussi, puis contacter en s'appuyant sur le contexte partagé.",
+    tpl:"Bonjour [Prénom], on était tous les deux inscrits à [événement]. J'imagine que [thème] vous parle aussi. Vous en avez retenu quoi ?" },
+  { id:"S12", lv:3, nom:"Relations communes multiples", fen:"Pas d'urgence",
+    sens:"Même écosystème. Taux d'acceptation très supérieur.",
+    geste:"Invitation en citant la relation commune la plus proche.",
+    tpl:"Bonjour [Prénom], on a [Nom] en commun. Je travaille sur [domaine], et votre parcours chez [entreprise] m'intéresse. Au plaisir d'échanger." }
+];
+
+/* ====================== État ====================== */
+
+var KEY = "linkedin-inbound-console-v1";
+var DB = { clients:[], active:null, data:{} };
+var tab = "rituel";
+
+try { var raw = localStorage.getItem(KEY); if (raw) DB = JSON.parse(raw) || DB; } catch(e){}
+if (!DB.clients) DB.clients = [];
+if (!DB.data) DB.data = {};
+
+// En mode compte, rien ne va dans le navigateur : tout part dans Supabase via STORE.
+function save(){
+  if (STORE.actif) return;
+  try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch(e){}
+}
+// Toujours un uuid : c'est le format attendu par les colonnes Postgres.
+function uid(){ return uuid4(); }
+function today(){ var d = new Date(); return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate(); }
+function yesterday(){ var d = new Date(Date.now() - 864e5); return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate(); }
+
+function esc(s){
+  return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function toast(m){
+  var t = document.getElementById("toast");
+  t.textContent = m; t.classList.add("show");
+  setTimeout(function(){ t.classList.remove("show"); }, 2100);
+}
+
+function blank(){
+  return { ritual:{ date:null, blocks:[false,false,false,false], streak:0, last:null },
+           pipeline:[], signals:[], weeks:[] };
+}
+function cur(){
+  if (!DB.active) return null;
+  if (!DB.data[DB.active]) DB.data[DB.active] = blank();
+  return DB.data[DB.active];
+}
+function curClient(){
+  for (var i=0;i<DB.clients.length;i++) if (DB.clients[i].id === DB.active) return DB.clients[i];
+  return null;
+}
+
+/* ====================== Comptes et synchronisation ======================
+ * STORE est la seule couche qui écrit. En mode local elle écrit dans le
+ * navigateur, en mode compte elle écrit dans Supabase. Le reste du code
+ * ne sait pas lequel des deux tourne.
+ * ===================================================================== */
+
+var STORE = { actif:false, sb:null, user:null };
+
+// Identifiant compatible avec la colonne uuid de Postgres.
+function uuid4(){
+  if (window.crypto && crypto.randomUUID){
+    try { return crypto.randomUUID(); } catch(e){}
+  }
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c){
+    var r = (crypto.getRandomValues(new Uint8Array(1))[0] % 16);
+    return (c === "x" ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+}
+
+function estCloud(){ return !!(CLOUD.url && CLOUD.cle); }
+
+// Les écritures partent sans bloquer l'interface. Une erreur remonte en toast.
+function ecrire(promesse){
+  if (!promesse || !promesse.then) return;
+  promesse.then(function(res){
+    if (res && res.error) toast("Non enregistré : " + res.error.message);
+  }, function(err){
+    toast("Non enregistré : " + (err && err.message ? err.message : "erreur réseau"));
+  });
+}
+
+STORE.addClient = function(c){
+  if (!STORE.actif) return save();
+  ecrire(STORE.sb.from("li_clients").insert({
+    id:c.id, proprio:STORE.user.id, nom:c.nom, icp:c.icp || null, objectif:c.obj || null
+  }));
+  ecrire(STORE.sb.from("li_rituel").insert({ client_id:c.id }));
+};
+
+STORE.setRituel = function(clientId, r){
+  if (!STORE.actif) return save();
+  ecrire(STORE.sb.from("li_rituel").upsert({
+    client_id:clientId, jour:r.date, blocs:r.blocks, serie:r.streak, dernier_jour:r.last
+  }, { onConflict:"client_id" }));
+};
+
+STORE.addContact = function(clientId, p){
+  if (!STORE.actif) return save();
+  ecrire(STORE.sb.from("li_pipeline").insert({
+    id:p.id, client_id:clientId, nom:p.nom, poste:p.role || null, source:p.src || null, etape:p.stage
+  }));
+};
+
+STORE.setContact = function(p){
+  if (!STORE.actif) return save();
+  ecrire(STORE.sb.from("li_pipeline").update({ etape:p.stage }).eq("id", p.id));
+};
+
+STORE.delContact = function(id){
+  if (!STORE.actif) return save();
+  ecrire(STORE.sb.from("li_pipeline").delete().eq("id", id));
+};
+
+STORE.addSemaine = function(clientId, w, rang){
+  if (!STORE.actif) return save();
+  ecrire(STORE.sb.from("li_semaines").insert({
+    id:w.id, client_id:clientId, label:w.label, rang:rang,
+    messages:0, reponses:0, invitations:0, acceptees:0, posts:0, commentaires:0, appels:0
+  }));
+};
+
+var COLS = { msg:"messages", rep:"reponses", inv:"invitations", acc:"acceptees",
+             posts:"posts", coms:"commentaires", calls:"appels" };
+
+STORE.setSemaine = function(w, cle, valeur){
+  if (!STORE.actif) return save();
+  var patch = {}; patch[COLS[cle]] = valeur;
+  ecrire(STORE.sb.from("li_semaines").update(patch).eq("id", w.id));
+};
+
+STORE.delSemaine = function(id){
+  if (!STORE.actif) return save();
+  ecrire(STORE.sb.from("li_semaines").delete().eq("id", id));
+};
+
+// Chargement complet au démarrage, puis tout se joue en mémoire.
+STORE.charger = function(){
+  return STORE.sb.from("li_clients").select("*").order("cree_le").then(function(rc){
+    if (rc.error) throw rc.error;
+    DB = { clients:[], active:null, data:{} };
+    (rc.data || []).forEach(function(row){
+      DB.clients.push({ id:row.id, nom:row.nom, icp:row.icp || "", obj:row.objectif || "" });
+      DB.data[row.id] = blank();
+    });
+    if (!DB.clients.length) return;
+    DB.active = DB.clients[0].id;
+    return Promise.all([
+      STORE.sb.from("li_rituel").select("*"),
+      STORE.sb.from("li_pipeline").select("*").order("cree_le"),
+      STORE.sb.from("li_semaines").select("*").order("rang")
+    ]).then(function(res){
+      (res[0].data || []).forEach(function(r){
+        var d = DB.data[r.client_id]; if (!d) return;
+        d.ritual = { date:r.jour, blocks:r.blocs || [false,false,false,false],
+                     streak:r.serie || 0, last:r.dernier_jour };
+      });
+      (res[1].data || []).forEach(function(p){
+        var d = DB.data[p.client_id]; if (!d) return;
+        d.pipeline.push({ id:p.id, nom:p.nom, role:p.poste || "", src:p.source || "", stage:p.etape });
+      });
+      (res[2].data || []).forEach(function(w){
+        var d = DB.data[w.client_id]; if (!d) return;
+        d.weeks.push({ id:w.id, label:w.label, msg:w.messages, rep:w.reponses, inv:w.invitations,
+                       acc:w.acceptees, posts:w.posts, coms:w.commentaires, calls:w.appels });
+      });
+    });
+  });
+};
+
+/* ---------- Écran de connexion ---------- */
+
+function ecranAuth(msg){
+  document.getElementById("tabs").style.display = "none";
+  document.getElementById("clientPick").style.display = "none";
+  document.getElementById("newClient").style.display = "none";
+  document.getElementById("view").innerHTML =
+    '<h1 class="page">Connexion</h1>' +
+    '<p class="sub">Tes clients et tes chiffres te suivent d\'un appareil à l\'autre. Personne d\'autre n\'y a accès.</p>' +
+    '<div class="panel" style="max-width:420px">' +
+      '<form id="af">' +
+        '<div class="field"><label>Adresse email</label><input name="email" type="email" required autocomplete="email"></div>' +
+        '<div class="field"><label>Mot de passe</label><input name="mdp" type="password" required minlength="8" autocomplete="current-password"></div>' +
+        (msg ? '<p class="sub" style="color:var(--pri);margin:0 0 12px">' + esc(msg) + '</p>' : '') +
+        '<div style="display:flex;gap:9px;flex-wrap:wrap">' +
+          '<button class="btn" type="submit" id="btnIn">Se connecter</button>' +
+          '<button class="btn btn-ghost" type="button" id="btnUp">Créer un compte</button>' +
+        '</div>' +
+      '</form>' +
+    '</div>' +
+    '<div class="note">Mot de passe de 8 caractères minimum. Le compte sert uniquement à retrouver tes données : la console ne se connecte à aucun compte LinkedIn et n\'envoie aucun message.</div>';
+
+  var form = document.getElementById("af");
+  function creds(){
+    var f = new FormData(form);
+    return { email:(f.get("email")||"").trim(), password:f.get("mdp")||"" };
+  }
+  function fin(res){
+    if (res.error){ ecranAuth(res.error.message); return; }
+    if (!res.data || !res.data.session){ ecranAuth("Vérifie ta boîte mail pour confirmer le compte."); return; }
+    demarrerSession(res.data.session.user);
+  }
+  form.onsubmit = function(e){
+    e.preventDefault();
+    document.getElementById("btnIn").disabled = true;
+    STORE.sb.auth.signInWithPassword(creds()).then(fin, function(err){ ecranAuth(String(err)); });
+  };
+  document.getElementById("btnUp").onclick = function(){
+    if (!form.reportValidity()) return;
+    STORE.sb.auth.signUp(creds()).then(fin, function(err){ ecranAuth(String(err)); });
+  };
+}
+
+function demarrerSession(user){
+  STORE.actif = true; STORE.user = user;
+  document.getElementById("tabs").style.display = "";
+  document.getElementById("clientPick").style.display = "";
+  document.getElementById("newClient").style.display = "";
+  var out = document.getElementById("btnOut");
+  if (out){ out.style.display = ""; out.title = user.email || ""; }
+  document.getElementById("view").innerHTML = '<div class="empty">Chargement de tes données...</div>';
+  STORE.charger().then(function(){ render(); }, function(err){
+    document.getElementById("view").innerHTML =
+      '<div class="note"><b>Impossible de charger les données.</b> ' + esc(err && err.message ? err.message : String(err)) +
+      '<br>Vérifie que le fichier <code>schema.sql</code> a bien été exécuté dans Supabase.</div>';
+  });
+}
+
+function boot(){
+  if (!estCloud()){ render(); return; }
+  document.getElementById("view").innerHTML = '<div class="empty">Connexion au serveur...</div>';
+  import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm").then(function(mod){
+    STORE.sb = mod.createClient(CLOUD.url, CLOUD.cle);
+    var out = document.createElement("button");
+    out.id = "btnOut"; out.className = "btn btn-ghost btn-sm"; out.textContent = "Quitter";
+    out.style.display = "none";
+    out.onclick = function(){ STORE.sb.auth.signOut().then(function(){ location.reload(); }); };
+    document.querySelector(".top-r").appendChild(out);
+    return STORE.sb.auth.getSession().then(function(res){
+      if (res.data && res.data.session) demarrerSession(res.data.session.user);
+      else ecranAuth("");
+    });
+  }).catch(function(err){
+    document.getElementById("view").innerHTML =
+      '<div class="note"><b>Le module de connexion n\'a pas pu être chargé.</b> ' +
+      esc(err && err.message ? err.message : String(err)) +
+      '<br>Vérifie ta connexion internet, ou laisse les champs CLOUD vides pour utiliser la console en local.</div>';
+  });
+}
+
+/* ====================== Modal ====================== */
+
+var scrim = document.getElementById("scrim"), modal = document.getElementById("modal");
+function openModal(html){ modal.innerHTML = html; scrim.classList.add("open"); }
+function closeModal(){ scrim.classList.remove("open"); modal.innerHTML = ""; }
+scrim.onclick = function(e){ if (e.target === scrim) closeModal(); };
+document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeModal(); });
+
+function copyText(txt){
+  function ok(){ toast("Copié"); }
+  function fb(){
+    var ta = document.createElement("textarea");
+    ta.value = txt; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); ok(); } catch(e){ toast("Copie impossible"); }
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, fb);
+  else fb();
+}
+
+/* ====================== Clients ====================== */
+
+function renderPicker(){
+  var sel = document.getElementById("clientPick");
+  if (!DB.clients.length){ sel.innerHTML = '<option>Aucun client</option>'; sel.disabled = true; return; }
+  sel.disabled = false;
+  sel.innerHTML = DB.clients.map(function(c){
+    return '<option value="' + esc(c.id) + '"' + (c.id===DB.active?" selected":"") + '>' + esc(c.nom) + '</option>';
+  }).join("");
+}
+document.getElementById("clientPick").onchange = function(e){ DB.active = e.target.value; save(); render(); };
+
+document.getElementById("newClient").onclick = function(){
+  openModal(
+    '<h2>Nouveau client</h2><p class="small">Les 3 infos qui cadrent tout le pilier LinkedIn.</p>' +
+    '<form id="cf">' +
+    '<div class="field"><label>Nom (personne ou cabinet)</label><input name="nom" required></div>' +
+    '<div class="field"><label>Sa cible (ICP)</label><input name="icp" placeholder="Dirigeants de PME industrielles, 10 à 50 salariés"></div>' +
+    '<div class="field"><label>Objectif LinkedIn</label><select name="obj">' +
+      '<option>Rendez-vous commerciaux</option><option>Réseau d\'apporteurs</option>' +
+      '<option>Notoriété secteur</option><option>Recrutement</option></select></div>' +
+    '<div class="modal-foot"><button type="button" class="btn btn-ghost" id="cx">Annuler</button>' +
+    '<button class="btn" type="submit">Créer</button></div></form>'
+  );
+  document.getElementById("cx").onclick = closeModal;
+  document.getElementById("cf").onsubmit = function(e){
+    e.preventDefault();
+    var f = new FormData(e.target);
+    var c = { id:uid(), nom:(f.get("nom")||"").trim(), icp:(f.get("icp")||"").trim(), obj:f.get("obj") };
+    if (!c.nom) return;
+    DB.clients.push(c); DB.data[c.id] = blank(); DB.active = c.id;
+    STORE.addClient(c); save(); closeModal(); render(); toast("Client créé");
+  };
+};
+
+/* ====================== Vue : Rituel ====================== */
+
+function viewRituel(){
+  var d = cur(), r = d.ritual;
+  if (r.date !== today()){ r.date = today(); r.blocks = [false,false,false,false]; save(); }
+  var done = r.blocks.filter(Boolean).length;
+
+  return '<h1 class="page">Rituel du jour</h1>' +
+    '<p class="sub">45 minutes, toujours dans cet ordre. On commence par ce qui rapporte aujourd\'hui, on finit par ce qui rapporte dans trois mois.</p>' +
+    '<div class="panel">' +
+      '<div class="streak"><b>' + r.streak + '</b><span>jour' + (r.streak>1?"s":"") + ' d\'affilée &middot; ' + done + ' bloc' + (done>1?"s":"") + ' sur 4 aujourd\'hui</span></div>' +
+      '<div class="blocks">' +
+        BLOCKS.map(function(b,i){
+          return '<button class="blk" data-b="' + i + '" aria-pressed="' + (r.blocks[i]?"true":"false") + '">' +
+            '<span class="chk">&#10003;</span><span><span class="t">' + esc(b.t) + '<em>' + esc(b.min) + '</em></span>' +
+            '<span class="d">' + esc(b.d) + '</span></span></button>';
+        }).join("") +
+      '</div>' +
+      (done===4 ? '<div class="note" style="border-color:color-mix(in srgb,var(--ok) 35%,var(--line));background:color-mix(in srgb,var(--ok) 7%,var(--card));color:#166534"><b>Journée bouclée.</b> Les 30 minutes qui suivent la publication décident de la portée du post : réponds à chaque commentaire dans l\'heure.</div>' : '') +
+    '</div>' +
+    '<div class="note"><b>Rappel :</b> 6 à 8 messages par jour vers des relations de 1er degré, 15 à 25 invitations maximum. Aucun outil d\'automatisation : contraire aux conditions d\'utilisation de LinkedIn, et risque réel de restriction du compte.</div>';
+}
+
+function bindRituel(){
+  var d = cur(), r = d.ritual;
+  Array.prototype.forEach.call(document.querySelectorAll(".blk"), function(b){
+    b.onclick = function(){
+      var i = +b.getAttribute("data-b");
+      r.blocks[i] = !r.blocks[i];
+      if (r.blocks.filter(Boolean).length === 4 && r.last !== today()){
+        r.streak = (r.last === yesterday()) ? r.streak + 1 : 1;
+        r.last = today();
+        toast("Journée validée, série de " + r.streak);
+      }
+      STORE.setRituel(DB.active, r); save(); render();
+    };
+  });
+}
+
+/* ====================== Vue : Pipeline ====================== */
+
+function viewPipeline(){
+  var d = cur();
+  var h = '<h1 class="page">Pipeline</h1>' +
+    '<p class="sub">Un contact, une carte. Il avance d\'une colonne quand quelque chose de réel s\'est passé, pas quand on l\'espère.</p>' +
+    '<div class="panel"><button class="btn btn-sm" id="addC">+ Ajouter un contact</button></div>';
+
+  if (!d.pipeline.length) return h + '<div class="empty">Aucun contact. Commence par les 40 à 60 relations de ta pile A, celles qui sont dans la cible aujourd\'hui.</div>';
+
+  h += '<div class="board">' + STAGES.map(function(s){
+    var items = d.pipeline.filter(function(p){ return p.stage === s.id; });
+    return '<div class="col"><div class="col-h"><b>' + esc(s.label) + '</b><span>' + items.length + '</span></div>' +
+      '<div class="col-body">' + (items.length ? items.map(function(p){
+        var si = STAGES.map(function(x){return x.id}).indexOf(p.stage);
+        return '<div class="pc"><b>' + esc(p.nom) + '</b>' +
+          (p.role ? '<div class="r">' + esc(p.role) + '</div>' : '') +
+          (p.src ? '<span class="src">' + esc(p.src) + '</span>' : '') +
+          '<div class="pc-act">' +
+            (si < STAGES.length-1 ? '<button class="mini" data-adv="' + esc(p.id) + '">Avancer &rarr;</button>' : '<button class="mini" data-adv="" disabled>Terminé</button>') +
+            '<button class="mini x" data-del="' + esc(p.id) + '" title="Supprimer">&times;</button>' +
+          '</div></div>';
+      }).join("") : '') + '</div></div>';
+  }).join("") + '</div>';
+  return h;
+}
+
+function bindPipeline(){
+  var d = cur();
+  var add = document.getElementById("addC");
+  if (add) add.onclick = function(){
+    openModal('<h2>Ajouter un contact</h2><p class="small">Le motif de contact est ce qui rendra le message personnel. Ne le laisse pas vide.</p>' +
+      '<form id="pf"><div class="field"><label>Nom</label><input name="nom" required></div>' +
+      '<div class="row2"><div class="field"><label>Poste et entreprise</label><input name="role"></div>' +
+      '<div class="field"><label>Motif de contact</label><input name="src" placeholder="A commenté mon post"></div></div>' +
+      '<div class="modal-foot"><button type="button" class="btn btn-ghost" id="px">Annuler</button>' +
+      '<button class="btn" type="submit">Ajouter</button></div></form>');
+    document.getElementById("px").onclick = closeModal;
+    document.getElementById("pf").onsubmit = function(e){
+      e.preventDefault();
+      var f = new FormData(e.target);
+      var nom = (f.get("nom")||"").trim();
+      if (!nom) return;
+      var p = { id:uid(), nom:nom, role:(f.get("role")||"").trim(), src:(f.get("src")||"").trim(), stage:"repere" };
+      d.pipeline.push(p);
+      STORE.addContact(DB.active, p); save(); closeModal(); render();
+    };
+  };
+  Array.prototype.forEach.call(document.querySelectorAll("[data-adv]"), function(b){
+    if (b.disabled) return;
+    b.onclick = function(){
+      var id = b.getAttribute("data-adv");
+      for (var i=0;i<d.pipeline.length;i++){
+        if (d.pipeline[i].id === id){
+          var ids = STAGES.map(function(s){return s.id});
+          var n = ids.indexOf(d.pipeline[i].stage) + 1;
+          if (n < ids.length){
+            d.pipeline[i].stage = ids[n];
+            STORE.setContact(d.pipeline[i]);
+            if (ids[n] === "rdv") toast("Appel booké. C'est la seule métrique qui paye.");
+          }
+        }
+      }
+      save(); render();
+    };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-del]"), function(b){
+    b.onclick = function(){
+      var id = b.getAttribute("data-del");
+      d.pipeline = d.pipeline.filter(function(p){ return p.id !== id; });
+      STORE.delContact(id); save(); render();
+    };
+  });
+}
+
+/* ====================== Vue : Signaux ====================== */
+
+function viewSignaux(){
+  return '<h1 class="page">Signaux</h1>' +
+    '<p class="sub">LinkedIn diffuse des signaux d\'achat gratuitement. Chaque signal a une fenêtre et un geste. Clique pour avoir le message.</p>' +
+    '<div class="panel"><p class="kick">Niveau 1, brûlants</p><div class="sig-grid">' + sigCards(1) + '</div></div>' +
+    '<div class="panel"><p class="kick">Niveau 2, changement de contexte</p><div class="sig-grid">' + sigCards(2) + '</div></div>' +
+    '<div class="panel"><p class="kick">Niveau 3, intérêt déclaré</p><div class="sig-grid">' + sigCards(3) + '</div></div>' +
+    '<div class="note"><b>La règle de fraîcheur :</b> un signal traité dans les 24 h vaut cinq fois le même signal traité une semaine plus tard. Passé 7 jours, le contexte a disparu et le message redevient du démarchage.</div>';
+}
+function sigCards(lv){
+  return SIGNALS.filter(function(s){ return s.lv === lv; }).map(function(s){
+    return '<button class="sig" data-sig="' + s.id + '"><span class="lv lv' + s.lv + '">' + esc(s.id) + '</span>' +
+      '<b>' + esc(s.nom) + '</b><span class="w">Fenêtre : ' + esc(s.fen) + '</span></button>';
+  }).join("");
+}
+function bindSignaux(){
+  Array.prototype.forEach.call(document.querySelectorAll("[data-sig]"), function(b){
+    b.onclick = function(){
+      var id = b.getAttribute("data-sig"), s = null;
+      for (var i=0;i<SIGNALS.length;i++) if (SIGNALS[i].id === id) s = SIGNALS[i];
+      if (!s) return;
+      openModal('<h2>' + esc(s.nom) + '</h2><p class="small">Fenêtre d\'action : ' + esc(s.fen) + '</p>' +
+        '<p class="kick">Ce que ça veut dire</p><div class="tpl">' + esc(s.sens) + '</div>' +
+        '<p class="kick">Le geste</p><div class="tpl">' + esc(s.geste) + '</div>' +
+        '<p class="kick">Le message</p><div class="tpl" id="tp">' + esc(s.tpl) + '</div>' +
+        '<div class="modal-foot"><button class="btn btn-ghost" id="sx">Fermer</button>' +
+        '<button class="btn" id="sc">Copier le message</button></div>');
+      document.getElementById("sx").onclick = closeModal;
+      document.getElementById("sc").onclick = function(){ copyText(s.tpl); };
+    };
+  });
+}
+
+/* ====================== Vue : Mesures ====================== */
+
+function viewMesures(){
+  var d = cur();
+  var T = { msg:0, rep:0, inv:0, acc:0, posts:0, coms:0, calls:0 };
+  d.weeks.forEach(function(w){
+    T.msg+=+w.msg||0; T.rep+=+w.rep||0; T.inv+=+w.inv||0; T.acc+=+w.acc||0;
+    T.posts+=+w.posts||0; T.coms+=+w.coms||0; T.calls+=+w.calls||0;
+  });
+  var tRep = T.msg ? Math.round(T.rep/T.msg*100) : null;
+  var tAcc = T.inv ? Math.round(T.acc/T.inv*100) : null;
+  var tConv = T.rep ? Math.round(T.calls/T.rep*100) : null;
+
+  function kpi(val, unit, lab, form){
+    return '<div class="kpi"><b>' + (val===null ? "&middot;&middot;" : val + unit) + '</b><span>' + lab + '</span><code>' + form + '</code></div>';
+  }
+
+  var h = '<h1 class="page">Mesures</h1>' +
+    '<p class="sub">Saisie manuelle, chaque vendredi. Aucun chiffre n\'est inventé ni estimé : la formule est visible sous chaque indicateur.</p>' +
+    '<div class="kpis">' +
+      kpi(T.calls, "", "Appels bookés", "somme des semaines") +
+      kpi(tRep, " %", "Taux de réponse", "réponses / messages") +
+      kpi(tAcc, " %", "Taux d'acceptation", "acceptées / invitations") +
+      kpi(tConv, " %", "Réponses vers appel", "appels / réponses") +
+    '</div>' +
+    '<div class="panel"><button class="btn btn-sm" id="addW">+ Ajouter une semaine</button></div>';
+
+  if (!d.weeks.length) return h + '<div class="empty">Aucune semaine saisie. Ce qui ne se compte pas ne s\'améliore pas.</div>' + seuils();
+
+  h += '<div class="panel"><div class="tscroll"><table><thead><tr>' +
+    '<th>Semaine</th><th>Messages</th><th>Réponses</th><th>Invit.</th><th>Acceptées</th><th>Posts</th><th>Comm.</th><th>Appels</th><th></th>' +
+    '</tr></thead><tbody>' +
+    d.weeks.map(function(w,i){
+      function c(k){ return '<td><input type="number" min="0" data-w="' + i + '" data-k="' + k + '" value="' + (w[k]||0) + '"></td>'; }
+      return '<tr><td style="font-weight:750;white-space:nowrap">' + esc(w.label) + '</td>' +
+        c("msg") + c("rep") + c("inv") + c("acc") + c("posts") + c("coms") + c("calls") +
+        '<td><button class="mini x" data-delw="' + i + '">&times;</button></td></tr>';
+    }).join("") + '</tbody></table></div></div>';
+
+  return h + seuils();
+}
+
+function seuils(){
+  return '<div class="panel"><p class="kick">Lire les chiffres</p>' +
+    '<div class="tscroll"><table><thead><tr><th>Symptôme</th><th>Cause probable</th><th>Correction</th></tr></thead><tbody>' +
+    '<tr><td>Moins de 15 % de réponses</td><td>Le message est trop long, ou il vend</td><td>Raccourcir, retirer toute mention de l\'offre</td></tr>' +
+    '<tr><td>Réponses mais aucun appel</td><td>Le rendez-vous est demandé trop tôt</td><td>Ajouter un message de valeur avant de proposer</td></tr>' +
+    '<tr><td>Posts sous 200 impressions</td><td>Pas assez de commentaires chez les autres</td><td>Doubler le bloc commentaires, réduire les posts</td></tr>' +
+    '<tr><td>Personne ne clique sur le profil</td><td>Le titre ne parle pas à la cible</td><td>Réécrire le titre</td></tr>' +
+    '</tbody></table></div></div>';
+}
+
+function bindMesures(){
+  var d = cur();
+  var add = document.getElementById("addW");
+  if (add) add.onclick = function(){
+    var w = { id:uid(), label:"Semaine " + (d.weeks.length+1),
+              msg:0, rep:0, inv:0, acc:0, posts:0, coms:0, calls:0 };
+    d.weeks.push(w);
+    STORE.addSemaine(DB.active, w, d.weeks.length); save(); render();
+  };
+  Array.prototype.forEach.call(document.querySelectorAll("[data-w]"), function(inp){
+    inp.onchange = function(){
+      var i = +inp.getAttribute("data-w"), k = inp.getAttribute("data-k");
+      var v = parseInt(inp.value, 10); if (isNaN(v) || v < 0) v = 0;
+      d.weeks[i][k] = v;
+      STORE.setSemaine(d.weeks[i], k, v); save(); render();
+    };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-delw]"), function(b){
+    b.onclick = function(){
+      var i = +b.getAttribute("data-delw");
+      var w = d.weeks[i];
+      d.weeks.splice(i, 1);
+      if (w) STORE.delSemaine(w.id);
+      save(); render();
+    };
+  });
+}
+
+/* ====================== Rendu ====================== */
+
+document.getElementById("tabs").onclick = function(e){
+  var t = e.target.closest(".tab"); if (!t) return;
+  tab = t.getAttribute("data-tab"); render();
+};
+
+function render(){
+  renderPicker();
+  Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(t){
+    t.setAttribute("aria-selected", t.getAttribute("data-tab") === tab);
+  });
+  var v = document.getElementById("view");
+
+  if (!DB.clients.length){
+    v.innerHTML = '<h1 class="page">Aucun client</h1>' +
+      '<p class="sub">Le pilier LinkedIn se pilote client par client.</p>' +
+      '<div class="empty">Crée ton premier client avec le bouton <b>+ Client</b> en haut à droite.</div>' +
+      '<div class="note"><b>Ce que cette console fait, et ce qu\'elle ne fait pas.</b> Elle pilote : rituel, pipeline, signaux, mesures. Elle ne se connecte à aucun compte LinkedIn, n\'envoie aucun message et ne stocke rien ailleurs que dans ce navigateur. C\'est un poste de pilotage, pas un robot. Prendre le contrôle d\'un compte client est contraire aux conditions d\'utilisation de LinkedIn et met son compte en risque.</div>';
+    return;
+  }
+  if (!DB.active) DB.active = DB.clients[0].id;
+
+  var c = curClient();
+  var head = c && c.icp ? '<div class="note" style="margin:16px 0 0;border-color:var(--line);background:color-mix(in srgb,var(--pri) 5%,var(--card));color:var(--ink)"><b>' + esc(c.nom) + '</b> &middot; cible : ' + esc(c.icp) + (c.obj ? ' &middot; objectif : ' + esc(c.obj) : '') + '</div>' : '';
+
+  if (tab === "rituel")        v.innerHTML = head + viewRituel();
+  else if (tab === "pipeline") v.innerHTML = head + viewPipeline();
+  else if (tab === "signaux")  v.innerHTML = head + viewSignaux();
+  else                         v.innerHTML = head + viewMesures();
+
+  if (tab === "rituel") bindRituel();
+  else if (tab === "pipeline") bindPipeline();
+  else if (tab === "signaux") bindSignaux();
+  else bindMesures();
+}
+
+applyBrand();
+boot();
+</script>
+</body>
+</html>
