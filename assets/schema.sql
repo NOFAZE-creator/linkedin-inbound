@@ -58,6 +58,7 @@ create table if not exists public.li_semaines (
   client_id     uuid not null references public.li_clients(id) on delete cascade,
   label         text not null,
   rang          integer not null default 0,
+  entrees       integer not null default 0 check (entrees      >= 0),
   messages      integer not null default 0 check (messages     >= 0),
   reponses      integer not null default 0 check (reponses     >= 0),
   invitations   integer not null default 0 check (invitations  >= 0),
@@ -69,6 +70,11 @@ create table if not exists public.li_semaines (
 );
 
 create index if not exists li_semaines_client_idx on public.li_semaines(client_id);
+
+-- Migration pour une base créée avant l'ajout de la colonne « entrees ».
+-- Sans danger à rejouer : ne fait rien si la colonne existe déjà.
+alter table public.li_semaines
+  add column if not exists entrees integer not null default 0;
 
 -- ============================================================================
 -- RLS : activée sur TOUTES les tables, sans exception.

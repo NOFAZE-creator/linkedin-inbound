@@ -189,9 +189,14 @@ function applyBrand(){
 
 /* ====================== Données de référence ====================== */
 
+/* Les deux etapes du milieu sont celles ou vit la latence : l'acceptation ne depend pas de toi
+   et prend 2 a 5 jours. Une colonne Invite vide aujourd'hui, c'est une colonne Contacte vide
+   dans une semaine. C'est la seule raison pour laquelle elles sont separees. */
 var STAGES = [
   { id:"repere",       label:"Repéré" },
   { id:"rechauffe",    label:"Réchauffé" },
+  { id:"invite",       label:"Invité" },
+  { id:"accepte",      label:"Accepté" },
   { id:"contacte",     label:"Contacté" },
   { id:"conversation", label:"En conversation" },
   { id:"rdv",          label:"Appel booké" }
@@ -201,7 +206,8 @@ var BLOCKS = [
   { t:"Signaux",      min:"10 min", d:"Traiter les signaux de la veille. Le bloc le plus rentable de la journée." },
   { t:"Réactivation", min:"15 min", d:"6 à 8 messages écrits un par un. Jamais de copier-coller brut." },
   { t:"Publication",  min:"10 min", d:"Publier le post du jour, préparé la veille." },
-  { t:"Commentaires", min:"10 min", d:"10 commentaires chez la cible et les gros comptes du secteur." }
+  { t:"Commentaires", min:"10 min", d:"10 commentaires, dont au moins 6 chez des cibles du pipeline. Portée et réchauffage en même temps." },
+  { t:"Pipeline",     min:"10 min", d:"10 cibles neuves entrées, les profils d'hier visités, et les invitations aux cibles réchauffées depuis 3 jours. Le seul bloc qui ne paie pas aujourd'hui." }
 ];
 
 var SIGNALS = [
@@ -286,7 +292,7 @@ function toast(m){
 }
 
 function blank(){
-  return { ritual:{ date:null, blocks:[false,false,false,false], streak:0, last:null },
+  return { ritual:{ date:null, blocks:[false,false,false,false,false], streak:0, last:null },
            pipeline:[], signals:[], weeks:[] };
 }
 function cur(){
@@ -366,11 +372,11 @@ STORE.addSemaine = function(clientId, w, rang){
   if (!STORE.actif) return save();
   ecrire(STORE.sb.from("li_semaines").insert({
     id:w.id, client_id:clientId, label:w.label, rang:rang,
-    messages:0, reponses:0, invitations:0, acceptees:0, posts:0, commentaires:0, appels:0
+    entrees:0, messages:0, reponses:0, invitations:0, acceptees:0, posts:0, commentaires:0, appels:0
   }));
 };
 
-var COLS = { msg:"messages", rep:"reponses", inv:"invitations", acc:"acceptees",
+var COLS = { ent:"entrees", msg:"messages", rep:"reponses", inv:"invitations", acc:"acceptees",
              posts:"posts", coms:"commentaires", calls:"appels" };
 
 STORE.setSemaine = function(w, cle, valeur){
@@ -402,7 +408,7 @@ STORE.charger = function(){
     ]).then(function(res){
       (res[0].data || []).forEach(function(r){
         var d = DB.data[r.client_id]; if (!d) return;
-        d.ritual = { date:r.jour, blocks:r.blocs || [false,false,false,false],
+        d.ritual = { date:r.jour, blocks:r.blocs || [false,false,false,false,false],
                      streak:r.serie || 0, last:r.dernier_jour };
       });
       (res[1].data || []).forEach(function(p){
@@ -411,7 +417,7 @@ STORE.charger = function(){
       });
       (res[2].data || []).forEach(function(w){
         var d = DB.data[w.client_id]; if (!d) return;
-        d.weeks.push({ id:w.id, label:w.label, msg:w.messages, rep:w.reponses, inv:w.invitations,
+        d.weeks.push({ id:w.id, label:w.label, ent:w.entrees, msg:w.messages, rep:w.reponses, inv:w.invitations,
                        acc:w.acceptees, posts:w.posts, coms:w.commentaires, calls:w.appels });
       });
     });
@@ -558,13 +564,13 @@ document.getElementById("newClient").onclick = function(){
 
 function viewRituel(){
   var d = cur(), r = d.ritual;
-  if (r.date !== today()){ r.date = today(); r.blocks = [false,false,false,false]; save(); }
+  if (r.date !== today()){ r.date = today(); r.blocks = [false,false,false,false,false]; save(); }
   var done = r.blocks.filter(Boolean).length;
 
   return '<h1 class="page">Rituel du jour</h1>' +
-    '<p class="sub">45 minutes, toujours dans cet ordre. On commence par ce qui rapporte aujourd\'hui, on finit par ce qui rapporte dans trois mois.</p>' +
+    '<p class="sub">55 minutes, toujours dans cet ordre. On commence par ce qui rapporte aujourd\'hui, on finit par ce qui rapporte dans trois mois.</p>' +
     '<div class="panel">' +
-      '<div class="streak"><b>' + r.streak + '</b><span>jour' + (r.streak>1?"s":"") + ' d\'affilée &middot; ' + done + ' bloc' + (done>1?"s":"") + ' sur 4 aujourd\'hui</span></div>' +
+      '<div class="streak"><b>' + r.streak + '</b><span>jour' + (r.streak>1?"s":"") + ' d\'affilée &middot; ' + done + ' bloc' + (done>1?"s":"") + ' sur 5 aujourd\'hui</span></div>' +
       '<div class="blocks">' +
         BLOCKS.map(function(b,i){
           return '<button class="blk" data-b="' + i + '" aria-pressed="' + (r.blocks[i]?"true":"false") + '">' +
@@ -572,7 +578,7 @@ function viewRituel(){
             '<span class="d">' + esc(b.d) + '</span></span></button>';
         }).join("") +
       '</div>' +
-      (done===4 ? '<div class="note" style="border-color:color-mix(in srgb,var(--ok) 35%,var(--line));background:color-mix(in srgb,var(--ok) 7%,var(--card));color:#166534"><b>Journée bouclée.</b> Les 30 minutes qui suivent la publication décident de la portée du post : réponds à chaque commentaire dans l\'heure.</div>' : '') +
+      (done===5 ? '<div class="note" style="border-color:color-mix(in srgb,var(--ok) 35%,var(--line));background:color-mix(in srgb,var(--ok) 7%,var(--card));color:#166534"><b>Journée bouclée.</b> Les 30 minutes qui suivent la publication décident de la portée du post : réponds à chaque commentaire dans l\'heure.</div>' : '') +
     '</div>' +
     '<div class="note"><b>Rappel :</b> 6 à 8 messages par jour vers des relations de 1er degré, 15 à 25 invitations maximum. Aucun outil d\'automatisation : contraire aux conditions d\'utilisation de LinkedIn, et risque réel de restriction du compte.</div>';
 }
@@ -583,7 +589,7 @@ function bindRituel(){
     b.onclick = function(){
       var i = +b.getAttribute("data-b");
       r.blocks[i] = !r.blocks[i];
-      if (r.blocks.filter(Boolean).length === 4 && r.last !== today()){
+      if (r.blocks.filter(Boolean).length === 5 && r.last !== today()){
         r.streak = (r.last === yesterday()) ? r.streak + 1 : 1;
         r.last = today();
         toast("Journée validée, série de " + r.streak);
@@ -706,14 +712,17 @@ function bindSignaux(){
 
 function viewMesures(){
   var d = cur();
-  var T = { msg:0, rep:0, inv:0, acc:0, posts:0, coms:0, calls:0 };
+  var T = { ent:0, msg:0, rep:0, inv:0, acc:0, posts:0, coms:0, calls:0 };
   d.weeks.forEach(function(w){
-    T.msg+=+w.msg||0; T.rep+=+w.rep||0; T.inv+=+w.inv||0; T.acc+=+w.acc||0;
+    T.ent+=+w.ent||0; T.msg+=+w.msg||0; T.rep+=+w.rep||0; T.inv+=+w.inv||0; T.acc+=+w.acc||0;
     T.posts+=+w.posts||0; T.coms+=+w.coms||0; T.calls+=+w.calls||0;
   });
   var tRep = T.msg ? Math.round(T.rep/T.msg*100) : null;
   var tAcc = T.inv ? Math.round(T.acc/T.inv*100) : null;
   var tConv = T.rep ? Math.round(T.calls/T.rep*100) : null;
+  /* Entrees par semaine : le seul indicateur avance. Une semaine a zero ici, ce sont des
+     conversations absentes 15 jours plus tard, et c est invisible partout ailleurs. */
+  var entSem = d.weeks.length ? Math.round(T.ent/d.weeks.length) : null;
 
   function kpi(val, unit, lab, form){
     return '<div class="kpi"><b>' + (val===null ? "&middot;&middot;" : val + unit) + '</b><span>' + lab + '</span><code>' + form + '</code></div>';
@@ -722,6 +731,7 @@ function viewMesures(){
   var h = '<h1 class="page">Mesures</h1>' +
     '<p class="sub">Saisie manuelle, chaque vendredi. Aucun chiffre n\'est inventé ni estimé : la formule est visible sous chaque indicateur.</p>' +
     '<div class="kpis">' +
+      kpi(entSem, "", "Cibles entrées / semaine", "entrées / nombre de semaines") +
       kpi(T.calls, "", "Appels bookés", "somme des semaines") +
       kpi(tRep, " %", "Taux de réponse", "réponses / messages") +
       kpi(tAcc, " %", "Taux d'acceptation", "acceptées / invitations") +
@@ -732,12 +742,12 @@ function viewMesures(){
   if (!d.weeks.length) return h + '<div class="empty">Aucune semaine saisie. Ce qui ne se compte pas ne s\'améliore pas.</div>' + seuils();
 
   h += '<div class="panel"><div class="tscroll"><table><thead><tr>' +
-    '<th>Semaine</th><th>Messages</th><th>Réponses</th><th>Invit.</th><th>Acceptées</th><th>Posts</th><th>Comm.</th><th>Appels</th><th></th>' +
+    '<th>Semaine</th><th>Entrées</th><th>Messages</th><th>Réponses</th><th>Invit.</th><th>Acceptées</th><th>Posts</th><th>Comm.</th><th>Appels</th><th></th>' +
     '</tr></thead><tbody>' +
     d.weeks.map(function(w,i){
       function c(k){ return '<td><input type="number" min="0" data-w="' + i + '" data-k="' + k + '" value="' + (w[k]||0) + '"></td>'; }
       return '<tr><td style="font-weight:750;white-space:nowrap">' + esc(w.label) + '</td>' +
-        c("msg") + c("rep") + c("inv") + c("acc") + c("posts") + c("coms") + c("calls") +
+        c("ent") + c("msg") + c("rep") + c("inv") + c("acc") + c("posts") + c("coms") + c("calls") +
         '<td><button class="mini x" data-delw="' + i + '">&times;</button></td></tr>';
     }).join("") + '</tbody></table></div></div>';
 
@@ -747,6 +757,7 @@ function viewMesures(){
 function seuils(){
   return '<div class="panel"><p class="kick">Lire les chiffres</p>' +
     '<div class="tscroll"><table><thead><tr><th>Symptôme</th><th>Cause probable</th><th>Correction</th></tr></thead><tbody>' +
+    '<tr><td><b>Colonne Entrées vide ou basse</b></td><td>Le bloc pipeline se fait sauter</td><td><b>Tout s&rsquo;effondre dans 15 jours. Prioritaire sur tout le reste</b></td></tr>' +
     '<tr><td>Moins de 15 % de réponses</td><td>Le message est trop long, ou il vend</td><td>Raccourcir, retirer toute mention de l\'offre</td></tr>' +
     '<tr><td>Réponses mais aucun appel</td><td>Le rendez-vous est demandé trop tôt</td><td>Ajouter un message de valeur avant de proposer</td></tr>' +
     '<tr><td>Posts sous 200 impressions</td><td>Pas assez de commentaires chez les autres</td><td>Doubler le bloc commentaires, réduire les posts</td></tr>' +
@@ -759,7 +770,7 @@ function bindMesures(){
   var add = document.getElementById("addW");
   if (add) add.onclick = function(){
     var w = { id:uid(), label:"Semaine " + (d.weeks.length+1),
-              msg:0, rep:0, inv:0, acc:0, posts:0, coms:0, calls:0 };
+              ent:0, msg:0, rep:0, inv:0, acc:0, posts:0, coms:0, calls:0 };
     d.weeks.push(w);
     STORE.addSemaine(DB.active, w, d.weeks.length); save(); render();
   };

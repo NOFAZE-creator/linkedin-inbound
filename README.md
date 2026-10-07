@@ -57,6 +57,8 @@ signaux d'achat et mesures. Multi-client. Les données restent dans le navigateu
 | Fichier | Contenu |
 |---|---|
 | `SKILL.md` | Le chef d'orchestre : les 4 rouages, les phases, le plan 30 jours |
+| `references/pipeline-et-suivi.md` | **À lire avant d'écrire le moindre plan.** Les latences réelles, pourquoi on ne planifie jamais en phases, le tableau de suivi hebdomadaire |
+| `references/roadmap-90-jours.md` | Le plan sur 3 mois, ses trois points de contrôle, et le creux du jour 35 |
 | `references/sprint-7-jours.md` | Le plan intensif jour par jour, et le calcul honnête des résultats |
 | `references/profil.md` | Réécriture complète du profil, section par section, et SEO de profil |
 | `references/trouver-sa-cible.md` | Recherche booléenne, banque de mots-clés, 8 gisements de cibles |
@@ -84,6 +86,8 @@ l'autre, et chacun ne voit que les siennes. Trois étapes :
 1. Créer un projet sur [supabase.com](https://supabase.com) (l'offre gratuite suffit largement).
 2. Ouvrir le SQL Editor, coller le contenu de `assets/schema.sql`, cliquer sur Run. Ça crée les
    quatre tables et active l'isolation par utilisateur (RLS) au niveau de la base.
+   **Si vous aviez déjà installé une version précédente**, rejouez simplement ce même fichier :
+   il est écrit pour être rejoué sans danger et ajoute la colonne `entrees` aux semaines.
 3. Dans `assets/console-linkedin.html`, remplir le bloc `CLOUD` en haut du script :
 
 ```js

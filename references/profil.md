@@ -43,6 +43,28 @@ la recherche interne.
 4. **La formule preuve** (uniquement avec du vrai chiffre)
    > [Chiffre réel vérifiable] | J'aide [cible] à [résultat]
 
+**La longueur, et c'est un piège mesuré.**
+
+Sur les 100 comptes les plus suivis au monde, la longueur du titre a été comptée :
+
+| Population | Longueur médiane |
+|---|---|
+| Les 100, toutes catégories | 11 mots |
+| Le top 10 | 7,5 mots |
+| Les PDG et dirigeants | **7 mots** |
+| Les experts et créateurs | **14 mots** |
+
+Le réflexe est de copier les plus suivis et de faire court. **C'est exactement l'erreur.**
+« Chairman and CEO at Microsoft » suffit en sept mots parce que le nom porte déjà toute
+l'information. Un titre de sept mots sur un compte que personne ne connaît ne contient rien.
+
+Les experts, seule population comparable à toi ou à ton client, écrivent **le double**. Parce qu'il
+faut y faire tenir trois choses : le métier (pour la recherche interne), la cible (pour qu'elle se
+reconnaisse) et le résultat (pour la raison de cliquer). Ça ne rentre pas en sept mots.
+
+> **La règle : 12 à 15 mots tant que personne ne te connaît.** On redescend à sept le jour où le
+> nom suffit, pas avant.
+
 **Les règles :**
 - La cible doit apparaître littéralement. Si elle ne se reconnaît pas, elle passe.
 - Le mot-clé de fonction doit y être (voir SEO de profil plus bas).

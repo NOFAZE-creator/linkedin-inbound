@@ -23,10 +23,21 @@ Le mécanisme, en clair :
   commentaire**, et l'annoncer dans le post ("le lien est en commentaire").
 - Modifier un post dans la première heure perturbe sa distribution. Dans le doute, relire avant de publier.
 - Les hashtags ont perdu presque tout leur poids depuis que LinkedIn a supprimé le suivi de
-  hashtags. 0 à 3 maximum, et ce n'est pas une stratégie.
+  hashtags. **Zéro est le bon chiffre** : le compte solo le plus performant du monde n'en met
+  aucun. Voir la section 4 bis. Si on y tient, 3 maximum, et ce n'est pas une stratégie.
 
-**Les meilleurs créneaux en B2B francophone :** mardi à jeudi, entre 7 h 30 et 9 h, ou entre 17 h et
-18 h. À tester sur son propre compte pendant 2 semaines, les audiences varient beaucoup selon le métier.
+**Les créneaux : ce que les sources disent, et leur désaccord.** Les trois études consultées
+s'accordent sur les jours (**mardi à jeudi**) et se contredisent sur l'heure : une donne 7 h 30 à
+9 h, une autre 10 h à 14 h avec un pic à 10 h-11 h, et l'analyse de 1 200 fondateurs conclut que
+**le créneau universel est un mythe** et qu'il faut suivre le rythme de sa propre cible.
+
+**Ce qu'on en fait, concrètement :** on part sur mardi à jeudi en milieu de matinée, et on mesure
+pendant deux semaines sur son propre compte. Un artisan et un directeur financier ne sont pas
+devant leur téléphone à la même heure, et aucune moyenne de plateforme ne le sait.
+
+**La seule règle d'horaire qui est solide :** on publie quand on est disponible l'heure qui suit.
+La fenêtre de récolte est de 60 à 90 minutes, et un bon créneau sans personne pour répondre aux
+commentaires vaut moins qu'un créneau moyen où l'auteur est présent.
 
 **Ce qui pénalise durablement :** les pods d'engagement (LinkedIn les détecte, et le post s'effondre
 après le boost artificiel), le contenu recopié sans source, les posts publiés plusieurs fois par jour.
@@ -109,10 +120,24 @@ Le hook est la seule ligne qui compte vraiment. En voici trente, classées par m
 14. "Je me suis planté. Complètement. Voilà comment."
 15. "Ce post ne va pas me faire gagner de clients. Tant pis."
 
-**Le chiffre précis**
-16. "[Chiffre réel] et une leçon que je n'oublierai pas."
+**Le chiffre précis, et la distinction à ne pas rater**
+
+Une analyse de 621 833 posts a mesuré que **91 % des contenus qui sous-performent ouvrent sur une
+donnée.** Ça ne veut pas dire qu'il ne faut jamais de chiffre en ligne 1. Ça veut dire qu'il y a
+deux sortes de chiffres et qu'une seule marche.
+
+| Le chiffre qui marche | Le chiffre qui tue le post |
+|---|---|
+| Le tien, vécu, vérifiable | Une statistique de marché |
+| « 47 courtiers appelés cette semaine » | « 73 % des entreprises peinent à... » |
+| Il annonce une histoire | Il annonce un rapport |
+
+16. "[Chiffre réel et personnel] et une leçon que je n'oublierai pas."
 17. "[Nombre] [cibles] contactées. Voilà ce qu'elles m'ont toutes dit."
 18. "En [durée], j'ai [action]. Voilà les 3 choses qui ont vraiment compté."
+
+**La règle :** la statistique de marché ne disparaît pas du post, elle descend. Scène, puis idée,
+puis chiffre comme preuve, puis conclusion. Le chiffre sert à prouver, jamais à accrocher.
 
 **La liste et la promesse**
 19. "[Nombre] erreurs que je vois chez presque tous les [cible]."
@@ -134,12 +159,36 @@ Le hook est la seule ligne qui compte vraiment. En voici trente, classées par m
 29. "Je ferme [chose] à [nombre] personnes. Voilà pourquoi."
 30. "Ce n'est pas pour tout le monde. C'est même pour très peu de monde."
 
-**Les 4 règles du hook :**
+**Les 6 règles du hook :**
 - Jamais de "Je suis ravi de vous annoncer". Personne ne s'arrête pour ça.
+- Jamais de "Je voulais partager". **82 % des comptes qui sous-performent ouvrent comme ça.**
 - Jamais d'emoji en début de ligne 1, ça signale "post marketing" avant même la lecture.
+- Jamais de statistique de marché en ligne 1, voir la famille 16 à 18 juste au-dessus.
 - Le hook doit tenir sur une ligne sur mobile, soit environ 60 caractères.
 - Le hook doit être **tenu** par la suite. Un hook qui promet plus que le post ne délivre, ça se
   paye au post suivant.
+
+---
+
+## 4 bis. Les trois zéros
+
+Mesure prise sur le compte solo le plus performant du monde (5,5 millions d'abonnés, construit en
+partant de zéro, post médian à environ 2 800 likes), sur deux ans de publications :
+
+| | |
+|---|---|
+| Émojis | **zéro** |
+| Hashtags | **zéro** |
+| Points d'exclamation | **zéro** |
+
+Ce sont exactement les trois choses que les débutants mettent partout, parce que ça donne
+l'impression de faire du contenu. **Les enlever ne coûte rien et c'est la correction la moins chère
+de tout ce fichier.**
+
+**Et la quatrième mesure du même compte, la plus contre-intuitive :** un même post republié **au
+moins six fois en deux ans**, entre 2 000 et 3 400 likes à chaque fois. Personne ne mémorise les
+posts des autres. Un post qui a marché il y a trois mois est un actif, pas un déchet. Voir la
+section 10.
 
 ---
 

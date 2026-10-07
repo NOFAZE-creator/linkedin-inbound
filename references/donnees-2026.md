@@ -81,8 +81,17 @@ le plus mauvais multiplicateur de portée. À tester, jamais à ériger en pilie
 **Ce que ça impose :** le CTA demande un commentaire, jamais un like.
 
 **Et le corollaire que personne n'exploite :** commenter chez les autres vous met devant leur
-audience, avec votre nom et votre photo. Au démarrage, 20 commentaires de fond par jour font voir
-plus que 3 posts. Le commentaire est le levier de portée, le post est le levier de conversion.
+audience, avec votre nom et votre photo. Au démarrage, **10 à 20 commentaires de fond par jour**
+font voir plus que 3 posts. Le commentaire est le levier de portée, le post est le levier de
+conversion.
+
+**Le chiffre à retenir pour arbitrer :** 10 par jour est le plancher qui marche, 20 est le rythme de
+poussée au démarrage d'un compte neuf. En dessous de 10, le compte reste invisible quelle que soit
+la qualité des posts.
+
+**Et ils font deux choses à la fois**, ce qui est la vraie raison de les compter : un commentaire
+chez une cible du pipeline fait la portée ET le réchauffage avant invitation. Voir
+`pipeline-et-suivi.md`.
 
 ---
 
@@ -90,12 +99,11 @@ plus que 3 posts. Le commentaire est le levier de portée, le post est le levier
 
 | | |
 |---|---|
-| Nombre de posts par semaine | **2 à 5.** 3 à 5 maximise les impressions totales |
+| Nombre de posts par semaine | **3 à 5.** Une analyse de 621 833 posts conclut que 4 à 5 fait mieux que tous les jours |
 | Au-delà de 5 | Rendements décroissants |
 | Espacement minimum | 24 heures |
-| Meilleurs jours | Mardi à jeudi |
-| Meilleure plage | 10h à 14h, pic à 10h-11h, heure locale de l'audience |
-| Meilleur créneau unique | Mercredi vers 10h |
+| Meilleurs jours | Mardi à jeudi, les trois sources s'accordent |
+| **L'heure** | **Les sources se contredisent. Voir `contenu.md` section 1 pour l'arbitrage** |
 | Fenêtre de visibilité d'un post | **60 à 90 minutes** pour récolter les premiers signaux |
 
 **La fenêtre explique pourquoi poster trois fois par jour se retourne contre vous :** les posts se
@@ -114,6 +122,79 @@ partir, c'est gâcher le post.
 
 Huit fois mieux, et ce n'est pas le message qui est meilleur : c'est que la personne arrive en
 ayant déjà décidé que vous saviez de quoi vous parliez.
+
+---
+
+## Le terrain rétrécit, et il faut le savoir
+
+Mesuré sur 1 200 comptes de fondateurs et 621 833 posts, sur 90 jours.
+
+| | |
+|---|---|
+| Vues en baisse sur un an | **environ 50 %** |
+| Abonnés d'une page entreprise qui voient un post donné | **1,6 %** |
+| Engagement vidéo | passé de 7,1 % à **5,6 %** |
+| Posts multi-images | passés de 8,2 % à **6,6 %** |
+| Portée perdue avec un lien sortant | **60 %** |
+| Portée médiane de la vidéo | **en baisse de 36 % sur un an** |
+
+**Ce que ça impose :** tout ce qui suit se joue sur un terrain qui se ferme. Les tactiques qui
+marchaient en 2024 ne tiennent plus, et une page entreprise ne sert plus à acquérir.
+
+**Et le signal qui a changé, celui qui explique tout le reste :** le temps de lecture a remplacé
+les likes comme signal principal de distribution. Ce n'est plus combien de gens cliquent, c'est
+combien de secondes ils restent. C'est pour ça que le carrousel gagne (quinze secondes de
+défilement) et que publier trois fois par jour se retourne contre soi.
+
+---
+
+## Ce que font les comptes faibles, chiffré
+
+L'autre face de la même étude. C'est la liste la plus exploitable du fichier, parce que ce sont des
+erreurs qui se corrigent en une après-midi.
+
+| L'erreur | Part des comptes qui sous-performent |
+|---|---|
+| Accroche générique du type « je voulais partager » | **82 %** |
+| Ouvrir le post sur une donnée | **91 %** |
+| Aucun sujet tenu dans le temps | **73 %** |
+| Annoncer son offre au format communiqué | **78 % des promotions échouent comme ça** |
+| Ne jamais publier de carrousel | **95,12 %** des profils (seuls 4,88 % le font régulièrement) |
+
+**Le point commun, et c'est le vrai diagnostic :** ce sont toutes des erreurs de **confort**.
+« Je voulais partager » est confortable. Ouvrir sur un chiffre est confortable, ça évite de
+raconter quelque chose de soi. Changer de sujet chaque semaine est confortable, ça évite de
+s'engager sur un terrain. Le format communiqué est confortable, ça évite de demander.
+
+Le compte faible n'est pas paresseux, il évite l'inconfort. C'est pour ça que lui donner des
+conseils techniques ne le répare pas : il connaît déjà la technique, il esquive le moment
+désagréable.
+
+**Et le chiffre qui vaut une stratégie à lui seul :** le carrousel est le meilleur format mesuré et
+**95 % des comptes n'en publient jamais**. C'est le seul endroit de ce fichier où un débutant peut
+battre un compte établi dès la première semaine.
+
+---
+
+## Le haut du classement, et pourquoi il ne s'imite pas
+
+Sur les 100 comptes LinkedIn les plus suivis au monde :
+
+| | |
+|---|---|
+| Déjà célèbres avant LinkedIn (PDG, chefs d'État, banquiers centraux) | **57 sur 100** |
+| Experts et créateurs ayant construit leur audience | **43 sur 100** |
+| Ticket d'entrée dans le top 100 | **996 028 abonnés** |
+| Part de Bill Gates seul dans le total | **plus d'1 abonné sur 9** |
+
+**Ce que ça impose, et c'est la réponse à donner au client qui dit « je veux faire comme untel » :**
+ce compte-là n'a pas construit une audience, il l'a importée. Il n'y a presque rien à copier dans
+le top 100, et le seul compte du top 20 construit en solo depuis zéro est celui des trois zéros de
+`contenu.md` section 4 bis.
+
+**Le repère utile pour la France :** le premier créateur français plafonne à 524 000 abonnés, et
+des comptes à **21 000 abonnés** figurent dans les classements de référence français. C'est le
+chiffre à montrer à quelqu'un qui croit qu'il faut des millions.
 
 ---
 

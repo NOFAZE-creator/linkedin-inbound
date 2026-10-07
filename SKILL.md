@@ -1,6 +1,6 @@
 ---
 name: linkedin-inbound
-description: Transforme n'importe quel compte LinkedIn en machine à clients entrants. Couvre les 4 rouages, le sprint 7 jours (le plan qui produit les premières conversations), le moteur de signaux d'achat (12 déclencheurs et le geste exact pour chacun), le profil (vitrine qui convertit), le contenu (posts qui stoppent le scroll, tous formats, avec visuel), le filet (recherche booléenne, mots-clés, où trouver sa cible) et les conversations (demandes de connexion, séquences de messages, prise de RDV). Inclut l'algorithme, les limites réelles de LinkedIn, les métriques, une console de pilotage et la façon de vendre LinkedIn comme pilier d'acquisition. Fonctionne pour n'importe quel métier ou secteur. À utiliser pour auditer un profil LinkedIn, écrire un post, trouver des prospects, envoyer des demandes de connexion, lancer un sprint LinkedIn, bâtir un calendrier de contenu, ou faire venir des clients sans prospecter à froid.
+description: Transforme n'importe quel compte LinkedIn en machine à clients entrants. Couvre les 4 rouages, le pipeline et ses latences réelles (la raison pour laquelle on ne planifie jamais en phases), la roadmap 90 jours avec ses trois points de contrôle, le sprint 7 jours, le moteur de signaux d'achat (12 déclencheurs et le geste exact pour chacun), le profil (vitrine qui convertit), le contenu (posts qui stoppent le scroll, tous formats, avec visuel), le filet (recherche booléenne, mots-clés, où trouver sa cible) et les conversations (demandes de connexion, séquences de messages, prise de RDV). Inclut l'algorithme, les limites réelles de LinkedIn, les chiffres 2026 avec leurs contradictions signalées, ce que font les comptes les plus forts et les plus faibles, le tableau de suivi hebdomadaire, une console de pilotage et la façon de vendre LinkedIn comme pilier d'acquisition. Fonctionne pour n'importe quel métier ou secteur. À utiliser pour auditer un profil LinkedIn, écrire un post, trouver des prospects, envoyer des demandes de connexion, lancer un sprint LinkedIn, bâtir un plan sur 30 ou 90 jours, suivre les résultats semaine par semaine, ou faire venir des clients sans prospecter à froid.
 ---
 
 # LinkedIn Inbound
@@ -28,6 +28,16 @@ bloque toute la machine.
 **L'ordre est non négociable.** Poster sur un profil mal fichu, c'est remplir un seau percé.
 Envoyer des invitations sans contenu, c'est demander un rendez-vous à un inconnu sans visage.
 On répare le profil, puis on lance le contenu ET le filet en parallèle, puis on convertit.
+
+**Et la nuance qui change tout : l'ordre est un ordre de priorité, pas un calendrier.** Le profil
+se répare le jour 0, en 2 h 30. À partir du jour 1, les rouages 2, 3 et 4 tournent **tous les
+jours en même temps**, parce que le rouage 3 a une latence de 12 à 15 jours entre le moment où on
+repère une cible et celui où on peut lui écrire. Un plan qui dit « semaine 1 on observe, semaine 2
+on invite » fabrique un trou de résultats au jour 35.
+
+C'est l'erreur la plus fréquente et la plus coûteuse de tout LinkedIn. Le mécanisme, les latences
+réelles et le tableau de suivi sont dans `references/pipeline-et-suivi.md`, **à lire avant d'écrire
+le moindre plan.**
 
 ---
 
@@ -212,21 +222,38 @@ ne répond, le problème est le premier message. On répare le rouage cassé, pa
 
 ## Le plan 30 jours, chemin B (à donner tel quel)
 
-Pour le chemin A, plus rapide et plus intense, voir `references/sprint-7-jours.md`.
+Pour le chemin A, plus rapide et plus intense, voir `references/sprint-7-jours.md`. Pour la suite
+sur 90 jours, `references/roadmap-90-jours.md`.
 
-**Semaine 1, réparer.** Aucun post. On refait le profil de A à Z (titre, bannière, À propos,
-sélection, URL). On construit la banque de mots-clés et les requêtes booléennes. On liste 100 cibles.
-On commente 10 posts par jour, sans rien vendre. Objectif : exister.
+**Le jour 0 (2 h 30, d'un bloc).** Le profil de A à Z (titre, bannière, À propos, sélection, URL).
+La banque de mots-clés et 2 ou 3 requêtes booléennes enregistrées. Le tri du réseau en trois piles.
+Rien n'est envoyé ce jour-là.
 
-**Semaine 2, amorcer.** 3 posts (douleur, story, pédagogique). 15 invitations par jour vers des
-cibles déjà réchauffées en commentaire. 10 commentaires par jour. Aucun message de vente.
+**Semaine 1, lancer les cinq lignes le même jour.** Chaque jour : 10 cibles neuves entrées,
+10 à 20 commentaires dont la majorité chez ces cibles, les visites de profil de la veille, et
+**les invitations à partir du jour 4**, quand le réchauffage a eu lieu. 3 posts sur la semaine,
+le premier dès le jour 1.
 
-**Semaine 3, alimenter.** 4 posts (dont 1 carrousel). 20 invitations par jour. Premiers messages de
-conversation avec ceux qui ont accepté depuis plus de 5 jours. Toujours zéro pitch.
+**Semaine 2, les premières conversations.** Les cinq lignes continuent à l'identique. Les relations
+acceptées depuis 4 jours reçoivent un premier message, qui ne vend rien. 4 posts dont le premier
+carrousel.
 
-**Semaine 4, convertir.** 4 posts (dont 1 preuve et 1 offre directe avec rareté). On relance les
-conversations ouvertes vers un échange. Premier bilan chiffré du tableau ci-dessus, et on ajuste le
-rouage le plus faible.
+**Semaine 3, relancer.** Les cinq lignes. Message 2 de la séquence pour ceux qui n'ont pas répondu.
+Les premiers appels tombent. 4 posts.
+
+**Semaine 4, convertir et mesurer.** Les cinq lignes. Un seul post d'offre directe avec rareté
+honnête. Bilan chiffré, et on répare l'étape la plus en amont qui cloche.
+
+**Deux corrections par rapport aux plans habituels, et elles comptent :**
+
+1. **Il y a des invitations dès la semaine 1, et un post dès le jour 1.** Attendre la semaine 2
+   pour inviter repousse toutes les conversations d'une semaine, et comme l'acceptation ne dépend
+   pas de toi, aucune intensité ne rattrape ce retard. Et commenter chez des gens sans rien publier
+   les envoie sur un profil qui a l'air mort.
+2. **Rien n'est séquentiel.** Les cinq lignes tournent tous les jours, du jour 1 au jour 90. Le
+   découpage en semaines dit seulement ce qui s'ajoute, jamais ce qui remplace. Un plan où la
+   semaine 2 remplace la semaine 1 fabrique un trou de résultats quinze jours plus tard. Le
+   mécanisme est détaillé dans `references/pipeline-et-suivi.md`.
 
 Ne jamais promettre de résultat sur 30 jours. L'inbound met 60 à 90 jours à vraiment décoller.
 Ce qui bouge en 30 jours, ce sont les conversations, pas encore le flux entrant.
@@ -273,6 +300,8 @@ resultat avant de produire le sien.
 
 | Fichier | Quand le lire |
 |---|---|
+| `references/pipeline-et-suivi.md` | **Avant d'écrire le moindre plan.** Les latences réelles, pourquoi on ne raisonne jamais en phases, le tableau de suivi hebdomadaire et le calcul du débit |
+| `references/roadmap-90-jours.md` | **Dès qu'on s'engage au-delà d'une semaine.** Le plan sur 3 mois, les trois points de contrôle, et le creux du jour 35 |
 | `references/donnees-2026.md` | **Avant tout arbitrage de format ou de rythme.** Les chiffres de plateforme et ce qu'ils imposent |
 | `references/exemples-profil.md` | **Avant d'écrire un titre ou un À propos.** Trois profils refaits en entier, avant et après |
 | `references/sprint-7-jours.md` | Chemin A, le plan jour par jour et le calcul honnête des résultats |
