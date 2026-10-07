@@ -251,10 +251,30 @@ Ce qui bouge en 30 jours, ce sont les conversations, pas encore le flux entrant.
 
 ---
 
+## Avant toute décision de format ou de rythme
+
+**Lire `references/donnees-2026.md`.** Il contient les chiffres de plateforme et, surtout, ce
+qu'ils imposent : pas de lien dans un post, le carrousel avant tout, le commentaire comme levier
+de portée au démarrage, et 2 a 5 posts par semaine et non trois par jour.
+
+Deux sources s'y contredisent sur la video, c'est ecrit noir sur blanc. Ne jamais lisser un
+desaccord entre sources : le signaler.
+
+## Avant d'ecrire un titre ou une section A propos
+
+**Lire `references/exemples-profil.md`.** Trois profils refaits en entier, avant et apres, avec
+la raison de chaque changement : un courtier, un artisan, et le cas le plus difficile, celui qui
+debute sans aucun resultat a montrer.
+
+Les formules seules ne suffisent pas. Quelqu'un qui n'ecrit pas pour vivre a besoin de voir le
+resultat avant de produire le sien.
+
 ## Fichiers de référence
 
 | Fichier | Quand le lire |
 |---|---|
+| `references/donnees-2026.md` | **Avant tout arbitrage de format ou de rythme.** Les chiffres de plateforme et ce qu'ils imposent |
+| `references/exemples-profil.md` | **Avant d'écrire un titre ou un À propos.** Trois profils refaits en entier, avant et après |
 | `references/sprint-7-jours.md` | Chemin A, le plan jour par jour et le calcul honnête des résultats |
 | `references/profil.md` | Phase 1, réécriture complète du profil et SEO de profil |
 | `references/trouver-sa-cible.md` | Phase 2, recherche booléenne, mots-clés, gisements de cibles |
