@@ -281,8 +281,9 @@ Ce qui bouge en 30 jours, ce sont les conversations, pas encore le flux entrant.
 ## Avant toute décision de format ou de rythme
 
 **Lire `references/donnees-2026.md`.** Il contient les chiffres de plateforme et, surtout, ce
-qu'ils imposent : pas de lien dans un post, le carrousel avant tout, le commentaire comme levier
-de portée au démarrage, et 2 a 5 posts par semaine et non trois par jour.
+qu'ils imposent : pas de lien dans un post, le commentaire comme levier de portée au démarrage,
+et 2 a 5 posts par semaine et non trois par jour. **Et avant tout visuel, `references/visuels-linkedin.md`** :
+sous 5 000 abonnés, le format de travail est l'image portrait, pas le carrousel.
 
 Deux sources s'y contredisent sur la video, c'est ecrit noir sur blanc. Ne jamais lisser un
 desaccord entre sources : le signaler.
@@ -302,6 +303,8 @@ resultat avant de produire le sien.
 |---|---|
 | `references/pipeline-et-suivi.md` | **Avant d'écrire le moindre plan.** Les latences réelles, pourquoi on ne raisonne jamais en phases, le tableau de suivi hebdomadaire et le calcul du débit |
 | `references/roadmap-90-jours.md` | **Dès qu'on s'engage au-delà d'une semaine.** Le plan sur 3 mois, les trois points de contrôle, et le creux du jour 35 |
+| `references/activation-engageurs.md` | **Apres chaque post qui depasse ta moyenne.** Le play qui fait 90 % du revenu de ColdIQ : transformer les gens qui ont like en pipeline. La cinquieme source de cibles, gratuite et quotidienne |
+| `references/visuels-linkedin.md` | **Avant de produire le moindre visuel.** Le cahier des charges mesure : image portrait 1080x1350 comme format de travail, carrousel 9 a 15 slides, polices minimales calculees, et pourquoi le carrousel coute de la portee sous 5 000 abonnes |
 | `references/donnees-2026.md` | **Avant tout arbitrage de format ou de rythme.** Les chiffres de plateforme et ce qu'ils imposent |
 | `references/exemples-profil.md` | **Avant d'écrire un titre ou un À propos.** Trois profils refaits en entier, avant et après |
 | `references/sprint-7-jours.md` | Chemin A, le plan jour par jour et le calcul honnête des résultats |

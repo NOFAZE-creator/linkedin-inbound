@@ -32,15 +32,48 @@ pas à acquérir.
 | Texte seul | 1,07x | 0,78x, taux de 4,00 % |
 | Vidéo native | 0,86x | 0,93x, taux de 5,60 % |
 
-**Pourquoi le carrousel gagne :** l'algorithme récompense le temps passé. Quinze à vingt secondes
-de défilement envoient un signal plus fort que trois secondes de lecture. Les documents
-représentent 12,92 % des posts enregistrés, soit 2,6 fois leur part du contenu publié.
+**Attention, ces multiplicateurs ne sont pas vérifiés.** Ils sont attribués partout au rapport de
+Richard van der Blom, mais on ne les retrouve dans aucune source primaire : ils circulent de blog en
+blog. Et ce sont des moyennes tous comptes confondus, qui cachent l'essentiel.
 
-**Le sondage est un cas à part.** Portée maximale, engagement minimal : on s'en sert pour être vu
-par des gens qui ne vous voient jamais, pas pour convertir. Un tous les dix posts.
+**Ce qu'ils cachent :** sous 5 000 abonnés, le carrousel **coûte** de la portée. AuthoredUp,
+rapporté à la médiane du même profil : **0,86x** entre 0 et 1 000 abonnés, **0,94x** entre 1 000 et
+5 000, 1,05x jusqu'à 20 000, 1,49x au-delà de 50 000. Le carrousel récompense les comptes installés.
+Pour un débutant, le format de travail est **l'image portrait 1080 x 1350**. Le détail complet et la
+fiche technique sont dans `visuels-linkedin.md`.
 
-**La vidéo est le point de désaccord.** Une source lui donne 5x l'engagement du texte, une autre
-le plus mauvais multiplicateur de portée. À tester, jamais à ériger en pilier.
+**Le sondage ne fait plus de portée.** Il était à 1,78x. **Depuis mi-mai 2026, il prend 22 %
+d'impressions en moins que le post photo moyen du même créateur**, contre 9 % de plus plus tôt dans
+l'année (MagicPost, 11 123 sondages). L'ancien conseil, un sondage tous les dix posts pour être vu,
+est périmé. On n'en fait plus.
+
+**La vidéo : le désaccord est résolu.** Une source lui donnait 5x l'engagement du texte, une autre
+le plus mauvais multiplicateur de portée. Les deux avaient raison, parce qu'elles ne mesuraient pas
+la même chose.
+
+Le verdict d'un compte à 700 publications sur quatre ans, qui a la donnée pour trancher :
+
+> **Les vidéos font moins de vues. Par contre elles convertissent mieux que tout autre format.**
+
+| Format | Portée | Conversion |
+|---|---|---|
+| Image | La meilleure | Moyenne |
+| Carrousel | Très bonne | Bonne |
+| **Vidéo** | **La moins bonne** | **La meilleure** |
+
+**Ce que ça impose :** on ne choisit pas un format, on mixe. Son propre plan hebdomadaire, donné
+tel quel : **1 à 2 vidéos, 1 à 2 carrousels, 2 à 3 images.**
+
+**Et le multiplicateur que personne ne mentionne :** le même post, publié avec un visuel plutôt que
+seul, fait **3 à 4 fois la portée**. C'est le plus gros écart mesuré de tout ce fichier, et il ne
+coûte qu'un visuel.
+
+**Un hack à connaître :** une vidéo de 10 secondes ou moins performe mieux publiée en **GIF
+accéléré** qu'en vidéo. Aucune explication connue, constat de terrain sur un gros volume.
+
+**La limite des infographies :** c'était sa marque de fabrique, et il constate que ça s'essouffle,
+parce qu'un visuel se copie en deux minutes. Son pari pour la suite est la vidéo, précisément
+parce qu'elle est inimitable.
 
 ---
 
@@ -135,16 +168,23 @@ Mesuré sur 1 200 comptes de fondateurs et 621 833 posts, sur 90 jours.
 | Abonnés d'une page entreprise qui voient un post donné | **1,6 %** |
 | Engagement vidéo | passé de 7,1 % à **5,6 %** |
 | Posts multi-images | passés de 8,2 % à **6,6 %** |
-| Portée perdue avec un lien sortant | **60 %** |
+| Portée perdue avec un lien sortant | **environ 20 %** à créateur constant (le 60 % souvent cité date de 2024) |
 | Portée médiane de la vidéo | **en baisse de 36 % sur un an** |
 
 **Ce que ça impose :** tout ce qui suit se joue sur un terrain qui se ferme. Les tactiques qui
 marchaient en 2024 ne tiennent plus, et une page entreprise ne sert plus à acquérir.
 
-**Et le signal qui a changé, celui qui explique tout le reste :** le temps de lecture a remplacé
-les likes comme signal principal de distribution. Ce n'est plus combien de gens cliquent, c'est
-combien de secondes ils restent. C'est pour ça que le carrousel gagne (quinze secondes de
-défilement) et que publier trois fois par jour se retourne contre soi.
+**Sur le temps de lecture, une prudence nécessaire.** Tous les éditeurs d'outils répètent qu'il a
+remplacé les likes comme signal principal. **LinkedIn n'a jamais publié la pondération de son
+classement : c'est une inférence, pas un fait documenté.** Elle est plausible, et elle explique bien
+pourquoi publier trois fois par jour se retourne contre soi. Mais elle ne doit pas servir de
+fondation à une stratégie, surtout quand la donnée mesurée montre que le carrousel, censé être le roi
+du temps de lecture, perd de la portée sous 5 000 abonnés.
+
+**Et sur le lien, un paradoxe à connaître.** Tous comptes mélangés, un lien dans le corps fait
+*mieux* (858 impressions contre 786). À créateur constant, il fait **21 % moins bien**. Les deux sont
+vrais : ce sont les gros comptes qui mettent des liens. La bonne question est « que se passe-t-il si
+moi je mets un lien », et la réponse est environ 20 % de portée en moins (MagicPost, 566 957 posts).
 
 ---
 
@@ -170,9 +210,12 @@ Le compte faible n'est pas paresseux, il évite l'inconfort. C'est pour ça que 
 conseils techniques ne le répare pas : il connaît déjà la technique, il esquive le moment
 désagréable.
 
-**Et le chiffre qui vaut une stratégie à lui seul :** le carrousel est le meilleur format mesuré et
-**95 % des comptes n'en publient jamais**. C'est le seul endroit de ce fichier où un débutant peut
-battre un compte établi dès la première semaine.
+**Une correction sur le carrousel, importante.** Une version précédente de ce fichier affirmait
+que, 95 % des comptes n'en publiant jamais, c'était le seul endroit où un débutant pouvait battre un
+compte établi dès la première semaine. **C'est faux.** Le chiffre des 95 % est exact, mais rare ne
+veut pas dire facile à gagner : sous 5 000 abonnés, le carrousel fait **0,86x à 0,94x** la portée
+habituelle du compte. Il ne devient un avantage qu'au-delà. Le levier du débutant, c'est l'image
+portrait, le commentaire chez les autres, et le traitement des engageurs.
 
 ---
 
@@ -195,6 +238,59 @@ le top 100, et le seul compte du top 20 construit en solo depuis zéro est celui
 **Le repère utile pour la France :** le premier créateur français plafonne à 524 000 abonnés, et
 des comptes à **21 000 abonnés** figurent dans les classements de référence français. C'est le
 chiffre à montrer à quelqu'un qui croit qu'il faut des millions.
+
+---
+
+## Les repères d'un compte qui a réussi, pour situer les tiens
+
+Chiffres donnés par Michel Lieben, ColdIQ, agence montée de zéro à 7 millions de dollars dont
+**90 % du revenu via LinkedIn**.
+
+### Ce qu'il faut vraiment pour gagner de l'argent
+
+| | |
+|---|---|
+| Un compte neuf, régulier, atteint | **10 000 abonnés en 6 à 12 mois** |
+| À 10 000 abonnés, on fait | 1 à 2 millions d'impressions par an |
+| **Le seuil qui suffit déjà** | **100 000 impressions sur 3 mois** |
+
+Son calcul, à faire lire à quiconque croit qu'il faut une audience énorme : 100 000 impressions sur
+trois mois, plus un ou deux clients par mois à 4 000 ou 6 000 €, font **plus de cinq chiffres par
+mois**. Il n'y a pas besoin de millions d'impressions pour faire du revenu.
+
+### Pourquoi LinkedIn et pas ailleurs
+
+Sa raison, et elle est inhabituelle :
+
+> LinkedIn est une plateforme ennuyeuse. C'est précisément ce qui en fait l'opportunité : le
+> contenu y est mauvais, donc faire **un peu mieux que mauvais** suffit à sortir du lot.
+
+Et le second argument : 1 000 likes sur Instagram, ce sont des gens qui se détendent. Sur LinkedIn,
+ce sont des dirigeants, des managers et des directeurs, dont beaucoup gèrent un budget à cinq ou
+six chiffres même sans être riches eux-mêmes.
+
+### Le chiffre à sortir à quelqu'un qui veut arrêter
+
+C'est l'histoire la plus utile du lot, et elle est vérifiable sur son compte.
+
+Il a essayé trois fois. Abandonné après 4 ou 5 posts. Abandonné après 10 ou 12. La troisième fois,
+il s'est engagé à publier **trois mois d'affilée quoi qu'il arrive**.
+
+| | |
+|---|---|
+| Posts publiés d'affilée | **31** |
+| Leads générés sur les 30 premiers | **zéro** |
+| Le 31e, qu'il a failli ne pas publier | 140 000 impressions, 600 à 700 likes |
+| Rendez-vous obtenus dessus | **25** |
+| Affaires signées | 3 ou 4 |
+| Revenu mensuel récurrent ajouté | **+10 000 $** |
+
+Et le détail qui rend l'histoire exploitable : ce 31e post n'était pas brillant. Il avait mal à la
+tête, cherchait une excuse pour ne pas publier, et a fini par compiler **quatre ressources trouvées
+ailleurs**. Aucune expertise personnelle dedans.
+
+**Ce que ça impose :** on ne juge pas avant trois mois de régularité. Et on publie même les jours
+où on n'a rien de brillant, parce qu'on ne sait pas lequel sera le 31e.
 
 ---
 

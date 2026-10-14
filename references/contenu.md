@@ -85,8 +85,9 @@ particulièrement bien quand on démarre et qu'on n'a pas encore de résultats �
 **8. Offre directe.** Proposer clairement, avec de la rareté honnête ("je prends 3 personnes ce
 mois-ci"). Maximum 1 sur 8 posts, sinon le compte devient une brochure.
 
-**9. Carrousel (document PDF).** Un sujet décomposé en 5 à 8 slides. Fort temps de lecture, donc
-forte distribution. Slide 1 = le hook, dernière slide = le CTA.
+**9. Carrousel (document PDF).** Un sujet décomposé en **9 à 15 slides**. Slide 1 = le hook,
+dernière slide = le CTA. **Attention : sous 5 000 abonnés, il coûte de la portée** (0,86x à 0,94x).
+Il sert alors la crédibilité et les enregistrements, pas la diffusion. Voir `visuels-linkedin.md`.
 
 **10. Question ou engagement.** Une vraie question à la cible, et on répond à absolument tout le
 monde. À utiliser en respiration, pas en systématique.
@@ -159,6 +160,61 @@ puis chiffre comme preuve, puis conclusion. Le chiffre sert à prouver, jamais �
 29. "Je ferme [chose] à [nombre] personnes. Voilà pourquoi."
 30. "Ce n'est pas pour tout le monde. C'est même pour très peu de monde."
 
+---
+
+## 4 ter. La règle des deux lignes
+
+La trouvaille la plus utile sur l'écriture d'accroche, et elle vient du compte qui a généré
+7 millions de dollars avec ce canal.
+
+Un hook n'est pas une ligne, c'en est deux, et **elles ne répondent pas à la même question** :
+
+| | La question à laquelle elle répond |
+|---|---|
+| **Ligne 1** | Pourquoi lire ce post |
+| **Ligne 2** | **Pourquoi lire ce post DE TOI** |
+
+**L'exemple, mot pour mot :**
+
+> « Comment je trouverais mes 10 premiers clients si je devais repartir de zéro »
+> « C'est comme ça que j'ai atteint 6,5 millions d'ARR en trois ans »
+
+La première ligne seule ne suffit pas, et la raison est brutale : **la réponse est disponible sur
+ChatGPT.** Sans la deuxième, le lecteur n'a aucune raison de te lire toi plutôt qu'une machine.
+
+**Et le corollaire, qui agace mais qui marche :** il répète ses chiffres dans presque chaque
+accroche. Des gens le lui reprochent. Sa réponse :
+
+> Tu ne fais pas des posts pour les gens qui te suivent déjà. Tu fais des posts pour des inconnus
+> qui découvrent ton service aujourd'hui. Ils ne connaissent pas tes chiffres.
+
+### Quand tu n'as pas de chiffres à toi
+
+C'est le cas de la plupart des gens à qui on donne ce skill, et il y a une réponse précise :
+**emprunter la preuve sociale.**
+
+| Ce que tu ne peux pas écrire | Ce que tu peux écrire à la place |
+|---|---|
+| « C'est comme ça que j'ai fait 2 M€ » | « C'est comme ça que Ramp a atteint 2 milliards d'ARR » |
+| Ton chiffre d'affaires | Le revenu que tu as généré **pour un client** |
+| Ton résultat | Ton **analyse** du tunnel de conversion d'une grosse boîte |
+
+Ta preuve n'est plus ton résultat, c'est **le fait d'avoir décortiqué celui d'un autre**. Tu n'as
+pas besoin de l'avoir fait toi-même pour avoir le droit de l'expliquer.
+
+Ça se combine très bien avec l'aveu honnête de `exemples-profil.md` : on emprunte la preuve dans
+l'accroche, et on reste transparent sur son propre niveau dans le profil.
+
+### La structure du corps qui suit
+
+Longue première phrase contenant des chiffres, puis **une liste à puces qui finit par une leçon**.
+
+**Pourquoi la liste plutôt qu'un pavé :** elle augmente le temps de lecture. Devant un bloc
+compact, celui que ça n'intéresse pas décroche entièrement. Devant une liste, il peut ne lire que
+le point 6, et ce point 6 compte quand même.
+
+---
+
 **Les 6 règles du hook :**
 - Jamais de "Je suis ravi de vous annoncer". Personne ne s'arrête pour ça.
 - Jamais de "Je voulais partager". **82 % des comptes qui sous-performent ouvrent comme ça.**
@@ -192,6 +248,90 @@ section 10.
 
 ---
 
+## 4 quater. Ne jamais partir d'une feuille blanche
+
+La raison numéro un pour laquelle les gens n'arrivent pas à faire marcher LinkedIn, selon le compte
+le plus performant du secteur : **ils n'ont aucune idée de ce qui performe sur la plateforme.**
+
+Et c'est facile à savoir, parce qu'un post qui marche se voit : le nombre de likes et de
+commentaires est public.
+
+### Filtrer par créateur, pas par thématique
+
+C'est le point contre-intuitif, et c'est le bon.
+
+| Tu filtres par | Ce que tu obtiens | Le problème |
+|---|---|---|
+| **Thématique** | Des posts qui font de l'engagement | **Tu ne sais pas s'ils rapportent de l'argent à leur auteur** |
+| **Créateur dont tu sais qu'il fait du chiffre** | Des posts qui performent **et** dont la formule se traduit en revenus | Aucun |
+
+Le danger du filtre par thématique, dit autrement : un inconnu peut faire 10 millions de vues en
+divertissant et ne rien vendre du tout. Tu copierais une formule qui ne produit rien.
+
+**La méthode exacte :**
+
+1. Choisir quelques créateurs de ta niche **dont tu sais qu'ils gagnent de l'argent**
+2. Regarder leur **moyenne** de likes. Disons 200
+3. Ne garder que leurs posts qui dépassent nettement, à 300 et plus
+4. Ces posts-là sont doublement validés : un créateur qui réussit, et son contenu qui surperforme
+   sa propre moyenne
+
+L'outil cité est Scripe, entre 55 et 69 € par mois, parce que LinkedIn ne permet pas de filtrer le
+profil d'un créateur par nombre de likes, seulement par ordre chronologique. N'importe quel
+équivalent fait l'affaire.
+
+### Piller la niche adjacente
+
+Le geste le plus productif, et le moins pratiqué.
+
+Tu ne regardes pas que tes concurrents directs. Tu regardes **une niche voisine**, où les mêmes
+formats marchent sur un autre sujet.
+
+**L'exemple donné :** un créateur parle de marketing B2B, lui parle de vente B2B. Il voit une
+infographie « Random acts of marketing » contre un système structuré, à 1 400 likes. Il la
+transpose : « Random acts of outbound ». Même format prouvé, son sujet à lui.
+
+Dans sa niche directe, il fait autre chose : il reprend un angle qui marche et **y apporte un
+contre-pied**.
+
+### Le rituel, une fois par mois
+
+| | |
+|---|---|
+| Un samedi ou un dimanche | Regarder beaucoup de posts, sans produire |
+| Chaque angle adaptable | Copier le lien dans un calendrier, avec une note d'une ligne sur l'adaptation |
+| Une fois dix angles collectés | Alors seulement, écrire |
+| Horizon | **Un mois à l'avance** |
+
+**Pourquoi séparer la collecte de l'écriture :** chercher l'inspiration et rédiger sont deux modes
+différents. Les mélanger produit des posts tièdes écrits dans l'urgence.
+
+---
+
+## 4 quinquies. L'IA et l'écriture des posts
+
+La règle de celui qui a publié 700 fois :
+
+> **Il ne fait jamais écrire un post par l'IA.**
+
+Ce qu'il fait à la place : il prend **le squelette** d'une publication qui a déjà marché, et il
+l'adapte à un nouveau sujet.
+
+**La distinction qui compte :**
+
+| | |
+|---|---|
+| Ce qu'il refuse | Que l'IA définisse la structure du post, ou choisisse les sources |
+| Ce qu'il accepte | Répliquer une structure **qu'il a écrite lui-même la première fois**, sur des sources **qu'il a choisies** |
+
+La raison qu'il donne : l'IA laisse une empreinte reconnaissable.
+
+**Ça rejoint la règle du projet sur le tiret cadratin**, et ça la généralise : ce n'est pas qu'un
+caractère, c'est une manière d'écrire qui se repère. Un post repéré comme écrit par une machine
+coûte la crédibilité de tous les suivants.
+
+---
+
 ## 5. Le visuel
 
 **Règle d'or : le visuel ne contient PAS le message. Il stoppe le scroll et crée la curiosité.**
@@ -206,13 +346,20 @@ il ne se lit pas.
 
 Punchline = 3 à 6 mots maximum. Moins il y a de mots, plus ça stoppe le scroll.
 
-**Le classement des formats visuels, du plus au moins porteur :**
-1. **Le carrousel PDF** (temps de lecture maximum)
-2. **Le texte seul** (souvent sous-estimé, et le plus rapide à produire)
-3. **L'image typographique** (bon compromis)
-4. **La photo authentique** (soi, son bureau, un moment vrai, jamais une banque d'images)
-5. **La vidéo courte sous-titrée** (fort potentiel, gros coût de production)
-6. **Le lien externe seul** (le plus faible, à éviter)
+**Le classement des formats dépend de la taille du compte.** C'est la découverte qui change tout.
+
+| | Sous 5 000 abonnés | Au-delà de 5 000 |
+|---|---|---|
+| **Format principal** | **Image portrait 1080 x 1350** | Texte et image, carrousel, texte et image |
+| Carrousel | Occasionnel (0,86x à 0,94x de portée) | Régulier, il devient rentable |
+| Texte seul | Seulement si on écrit très bien | Idem |
+| Vidéo | Seulement si on aime ça, et 2 à 5 minutes | Idem |
+| Sondage | **Non**, il ne fait plus de portée depuis mi-mai 2026 | Non |
+| Republication d'un post d'autrui | **Jamais** (0,29x) | Jamais |
+
+**Le portrait bat le carré de 31 % d'impressions** (1 204 contre 831, AuthoredUp, 368 489 posts).
+Le carré est recommandé partout comme défaut sûr : la donnée ne le soutient pas. Spécifications
+complètes dans `visuels-linkedin.md`.
 
 **Jamais de banque d'images générique.** Une photo de poignée de main en costume tue la crédibilité
 d'un post plus vite que n'importe quelle faute d'orthographe.
@@ -221,12 +368,19 @@ d'un post plus vite que n'importe quelle faute d'orthographe.
 
 ## 6. Le carrousel, format par format
 
-- **Slide 1 :** le hook, en très gros. C'est la miniature, elle décide de tout.
-- **Slide 2 :** le contexte ou la promesse ("voilà les 5 étapes").
-- **Slides 3 à 7 :** une idée par slide, une phrase courte plus une explication de 2 lignes maximum.
-- **Dernière slide :** le CTA, plus la photo de l'auteur et son nom.
-- **Format :** PDF, portrait 4:5 ou carré 1:1, 5 à 8 slides. Au-delà de 10, l'abandon augmente.
-- **Le texte de la publication** compte quand même : y remettre le hook et 3 à 4 lignes.
+- **Slide 1 :** le hook, à **120 px** minimum. C'est la seule chose que le fil affiche.
+- **Slide 2 :** le contexte ou la promesse ("voilà les 9 étapes").
+- **Slides 3 à n-1 :** une idée par slide, **25 à 35 mots**, corps de texte à **45 px minimum**.
+- **Slide 3 ou 4 :** une rupture visuelle (fond différent, citation), là où l'attention baisse.
+- **Dernière slide :** un seul CTA, la photo de l'auteur et son nom.
+- **Format :** PDF, **1080 x 1350**, toutes les slides au même ratio, **9 à 15 slides**.
+- **La légende du post : 0 à 100 caractères.** C'est l'inverse du post texte : une légende courte
+  donne 1,28x de portée sur un carrousel (AuthoredUp), parce qu'elle ne concurrence pas la couverture.
+- **Pourquoi pas 5 à 8 :** 2 à 5 slides font 22 likes médians, 13 à 20 en font 58, et l'effet tient
+  dans toutes les tailles de compte (MagicPost, 67 765 carrousels). L'abandon au-delà de 10 slides,
+  répété partout, n'est mesuré par personne : LinkedIn n'expose pas le taux de complétion.
+- **Pourquoi 45 px :** une slide de 1080 px s'affiche à environ 390 px sur un téléphone. Facteur 2,8.
+  Sous 45 px au dessin, le texte passe sous 16 px à l'écran, donc illisible.
 
 ---
 

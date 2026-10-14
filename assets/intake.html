@@ -205,7 +205,7 @@ footer{padding:0 1.25rem 1.6rem;max-width:660px;margin:0 auto;width:100%;text-al
 
 <main><div class="stage" id="stage"></div></main>
 
-<footer><p class="privacy">Rien n'est envoyé nulle part. Tes réponses restent dans ton navigateur, sur ton appareil.</p></footer>
+<footer><p class="privacy" id="rgpd"></p></footer>
 
 <div class="toast" id="toast">Brief copié</div>
 
@@ -220,8 +220,23 @@ footer{padding:0 1.25rem 1.6rem;max-width:660px;margin:0 auto;width:100%;text-al
 var BRAND = {
   nom:      "",                  // Ton nom ou celui de ta boîte. Vide = neutre.
   sous:     "LinkedIn Inbound",  // La ligne sous le nom.
-  primaire: "#EC0E8F"            // Ta couleur principale.
+  primaire: "#EC0E8F",           // Ta couleur principale.
+  contact:  ""                    // Adresse pour exercer ses droits RGPD. A remplir avant diffusion.
 };
+
+/* Mention RGPD, exigee sur tout formulaire public. L ancienne disait que rien
+   n etait envoye, alors que tout l interet est que le brief soit transmis :
+   elle etait donc trompeuse. Celle-ci dit ce qui se passe vraiment. */
+function mentionRgpd(){
+  var el = document.getElementById("rgpd"); if (!el) return;
+  var qui = BRAND.nom || "la personne qui t\'a envoyé ce formulaire";
+  var ou = BRAND.contact ? (" à " + BRAND.contact) : " auprès de cette personne";
+  el.textContent = "Tes réponses restent dans ce navigateur tant que tu ne les transmets pas. " +
+    "Quand tu envoies ton brief, il est reçu par " + qui + " dans le seul but de préparer ton accompagnement, " +
+    "et conservé le temps de l\'accompagnement puis trois ans au plus. " +
+    "Tu peux demander à tout moment l\'accès, la rectification ou la suppression de tes réponses" + ou + ", " +
+    "et saisir la CNIL. N\'écris pas le nom complet de tes prospects : un prénom ou un secteur suffit.";
+}
 
 function applyBrand(){
   var r = document.documentElement, p = BRAND.primaire;
@@ -651,6 +666,7 @@ function render(){
 }
 
 applyBrand();
+mentionRgpd();
 buildProgress();
 render();
 </script>

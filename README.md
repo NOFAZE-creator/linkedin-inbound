@@ -57,6 +57,10 @@ signaux d'achat et mesures. Multi-client. Les données restent dans le navigateu
 | Fichier | Contenu |
 |---|---|
 | `SKILL.md` | Le chef d'orchestre : les 4 rouages, les phases, le plan 30 jours |
+| `references/visuels-linkedin.md` | **À lire avant de produire le moindre visuel.** Le cahier des charges mesuré : formats, polices minimales, nombre de slides, et pourquoi le carrousel coûte de la portée sous 5 000 abonnés |
+| `references/activation-engageurs.md` | **Après chaque post qui dépasse la moyenne.** Transformer les gens qui ont liké en conversations : la source de cibles la plus chaude, et la plus négligée |
+| `references/donnees-2026.md` | Les chiffres de la plateforme, ce qu'ils imposent, et leurs contradictions signalées |
+| `references/exemples-profil.md` | Trois profils refaits en entier, avant et après, dont celui de quelqu'un qui débute sans résultat |
 | `references/pipeline-et-suivi.md` | **À lire avant d'écrire le moindre plan.** Les latences réelles, pourquoi on ne planifie jamais en phases, le tableau de suivi hebdomadaire |
 | `references/roadmap-90-jours.md` | Le plan sur 3 mois, ses trois points de contrôle, et le creux du jour 35 |
 | `references/sprint-7-jours.md` | Le plan intensif jour par jour, et le calcul honnête des résultats |
@@ -126,12 +130,17 @@ script. Il est le seul endroit à toucher, il est signalé par un commentaire :
 var BRAND = {
   nom:      "",                  // Votre nom ou celui de votre boîte. Vide = neutre.
   sous:     "LinkedIn Inbound",  // La ligne sous le nom.
-  primaire: "#EC0E8F"            // Votre couleur principale.
+  primaire: "#EC0E8F",           // Votre couleur principale.
+  contact:  ""                    // intake.html seulement : l'adresse où exercer ses droits RGPD.
 };
 ```
 
 La couleur se propage automatiquement à toute la page : boutons, progression, sélections, teintes et
-fond. Elle s'adapte seule au thème clair et au thème sombre. Il n'y a rien d'autre à modifier.
+fond. Elle s'adapte seule au thème clair et au thème sombre.
+
+**Le champ `contact` du formulaire d'arrivée est à remplir avant de le diffuser.** La mention RGPD
+en bas du formulaire s'en sert pour dire à qui le brief est transmis et où demander sa suppression.
+Vide, elle reste exacte mais renvoie vers « la personne qui t'a envoyé ce formulaire ».
 
 ---
 

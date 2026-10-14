@@ -137,7 +137,7 @@ Les cinq lignes ne changent pas. Ce qui change, c'est ce qu'on surveille et ce q
 |---|---|
 | **Le recyclage** | Les posts du mois 1 qui ont marché sont republiés. Personne ne mémorise les posts des autres |
 | **Les prescripteurs** | La pile B du tri initial entre dans le pipeline. Souvent le meilleur rendement à 6 mois |
-| **Le premier contenu lourd** | Un carrousel par semaine, le format le plus performant et celui que presque personne ne fait |
+| **Le premier contenu lourd** | Un carrousel par semaine **si le compte dépasse 5 000 abonnés**. En dessous il coûte de la portée (0,86x à 0,94x) : on reste sur l'image portrait et le carrousel reste occasionnel. Voir `visuels-linkedin.md` |
 
 **Ce qu'on s'interdit formellement pendant ce mois :**
 

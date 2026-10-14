@@ -278,8 +278,12 @@ function save(){
 }
 // Toujours un uuid : c'est le format attendu par les colonnes Postgres.
 function uid(){ return uuid4(); }
-function today(){ var d = new Date(); return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate(); }
-function yesterday(){ var d = new Date(Date.now() - 864e5); return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate(); }
+/* Dates ISO avec zeros (2026-10-04). Une colonne date de Postgres renvoie ce
+   format : sans les zeros, la comparaison avec "2026-10-4" echouait toujours
+   en mode cloud, et la serie du rituel ne depassait jamais 1. */
+function isoJour(d){ return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); }
+function today(){ return isoJour(new Date()); }
+function yesterday(){ return isoJour(new Date(Date.now() - 864e5)); }
 
 function esc(s){
   return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;")

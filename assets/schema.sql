@@ -44,7 +44,7 @@ create table if not exists public.li_pipeline (
   poste      text,
   source     text,
   etape      text not null default 'repere'
-             check (etape in ('repere','rechauffe','contacte','conversation','rdv')),
+             check (etape in ('repere','rechauffe','invite','accepte','contacte','conversation','rdv')),
   cree_le    timestamptz not null default now()
 );
 
@@ -70,6 +70,14 @@ create table if not exists public.li_semaines (
 );
 
 create index if not exists li_semaines_client_idx on public.li_semaines(client_id);
+
+-- Migration pour une base créée avant l'ajout des étapes « invite » et « accepte ».
+-- La console a 7 étapes de pipeline, l'ancienne contrainte n'en acceptait que 5 :
+-- tout contact passé à Invité ou Accepté était refusé par la base.
+-- Sans danger à rejouer.
+alter table public.li_pipeline drop constraint if exists li_pipeline_etape_check;
+alter table public.li_pipeline add constraint li_pipeline_etape_check
+  check (etape in ('repere','rechauffe','invite','accepte','contacte','conversation','rdv'));
 
 -- Migration pour une base créée avant l'ajout de la colonne « entrees ».
 -- Sans danger à rejouer : ne fait rien si la colonne existe déjà.
